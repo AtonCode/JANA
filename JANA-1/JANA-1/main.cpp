@@ -49,10 +49,7 @@ int main()
     Func_Create_Acount2=Create_Acount(Func_Create_Acount,UserMatrix);
     Create_Acount(Func_Create_Acount2,UserMatrix);
     
-    
-    
     //Login con el dato true de Func_Create_Acount2
-    
     
     
     return 0;
