@@ -1,70 +1,69 @@
 //
-//
 //  main.cpp
 //  |JANA|
 //
+//  Create by Alejandro S. Leal && Natalia A. on 5/10/2020
+//
 //  Copyright © 2020 aslbank.com. All rights reserved.
 //
-//
+
+//  Librerias
 #include <iostream>
 #include <string>
 #include <stdio.h>
 #include <cstdlib>
 #define SIZE 6
 
-
 using namespace std;
 
-int size= 10;
+//Estructura Objetos
+struct DISP{
+    string name;
+    string brand;
+    string position;
+    
+    string vol;
+    string estate;
+    string chanel;
+    string lumino;
+};
 
-string os="clear";//EN caso windows es clear.
-
-//Matriz de Usuarios
-string UserMatrix[6][6]; //Cada Columna es un usuario
-
+//Estructura usuarios
 struct USER{
+    int id;
+    string name;
     string email;
     string password;
+    string Profession;
+    string bornDate;
+    string sex;
+    DISP dispo[4];
     bool auth;
 };
 
-//DeclaraciÛn de Funciones
+//Declaracion de Funciones
 bool welcome();
-bool Create_Acount(bool NotUser,string UserMatrlix[6][6]);
-bool validarEmail(string correo);
-USER login();
-bool authenticate(string correo, string password);
-void menu(USER user);
-void func_agregar_dispositivos(USER user);
-void func_eliminar_dispositivos(USER user);
-void func_listar_dispositivos(USER user);
-void func_modificar_caracteristicas_dispositivos(USER user);
-void func_modificar_funcionalidades_dispositivos(USER user);
+void Security(USER user,USER userVect[9]);
+bool Create_Acount(bool NotUser, USER userVect[9]);
+USER login(USER user,USER userVect[9]);
+void menu(USER user,USER userVect[9]);
+void func_agregar_dispositivos(USER user,USER userVect[9]);
+void func_eliminar_dispositivos(USER user,USER userVect[9]);
+void func_listar_dispositivos(USER user,USER userVect[9]);
+void func_modificar_caracteristicas_dispositivos(USER user,USER userVect[9]);
+void func_modificar_funcionalidades_dispositivos(USER user,USER userVect[9]);
 
-//FunciÛn Principal
+
+
+//Funcion Principal
 int main()
 {
+    //Vect+Structuta de Usuarios + dispositivos
+    USER userVect[9];
+    USER user;
 
-    //Bienbenida al programa y pregunta si es o no usuario
-    //La funcion devuelve un valor yes o no
-    //Evaluamos la respuesta del usuario las funcion retorna un true o false.
-    //True para usarios y false para no usuarios.
-
-    //Variables de Retorno
-    bool Func_Welcome;
-    bool Func_Create_Acount;
-    
-    //Limpiamos la terminal
-    //system("clear");
-    USER usuario;
-    do{
-        Func_Welcome= welcome();
-        do{
-            Func_Create_Acount=Create_Acount(Func_Welcome,UserMatrix);
-        }while(!Func_Create_Acount);
-        usuario=login();
-    }while(!usuario.auth);
-    menu(usuario);
+    Security(user,userVect);
+            
 
     return 0;
 }
@@ -76,6 +75,7 @@ es nuevo o existente retornando
 su respuesta (yes/no).
 
 */
+
 bool welcome()
 {
     //Se inicializa una variables string para almacenar la respesta
@@ -117,8 +117,106 @@ bool welcome()
     return estado;
 }
 
+
+void Security(USER user,USER userVect[9])
+{
+    //Variables de Retorno de funciones
+    bool Func_Welcome=false;
+    bool Func_Create_Acount = false;
+    USER Func_login;
+    
+    //Se limpia la terminal
+    system("clear");
+    
+    //Inicio de la logica de programa
+    Func_Welcome= welcome();//Retorna si ya es usuario o no
+    
+    
+    if(Func_Welcome==true)//Si ya es usuario ejecuta el ciclo de aut para login
+    {
+        //Ciclo se repite solo 4 veces si la aut no es exitosa
+        //Si se exede los intentos cierra el programa
+        for(int i= 0; i<= 3 && Func_login.auth == false; i++)
+        {
+            
+            cout<<" -| Now Login"<<endl;
+            cout<<" "<<endl;
+            Func_login=login(user, userVect);
+            
+            //Si la aut del user en el login es positiva envia al usuario a su menu
+            if(Func_login.auth==true)
+            {
+                system("clear");
+                menu(user,userVect);
+                cout<<" "<<endl;
+                
+                
+            }else{//De lo contrario cuenta los intentos para hacer falsa el if del ciclo
+                system("clear");
+                cout<<" "<<endl;
+                cout<<"Te quedan: "<<4-(i+1)<<" Intentos"<<endl<<endl;
+                
+                if(i==3)//De cierra el programa
+                {
+                    cout<<" "<<endl;
+                    cout<<"Reinica el programa"<<endl<<endl;
+                    cout<<" "<<endl;
+                }
+                
+            }
+        }
+
+        
+    }else{//Caso cuando es un usuario nuevo y no esta registrado
+        
+        //Funcion Crea usuario nuevo y retorna un booleano para el caso exitoso
+        Func_Create_Acount=Create_Acount(Func_Welcome, userVect);
+        
+        //Condicion para evaluar si el usuario ha sido correcatemente creado
+        if(Func_Create_Acount==true)
+        {
+            //Ciclo se repite solo 4 veces si la aut no es exitosa
+            //Si se exede los intentos cierra el programa
+            for(int i= 0; i<= 3 && Func_login.auth == false; i++)
+            {
+                
+                cout<<" -| Now Login"<<endl;
+                cout<<" "<<endl;
+                Func_login=login(user, userVect);
+                
+                //Si la aut del user en el login es positiva envia al usuario a su menu
+                if(Func_login.auth==true)
+                {
+                    system("clear");
+                    menu(user,userVect);
+                    cout<<" "<<endl;
+                    
+                    
+                }else{//De lo contrario cuenta los intentos para hacer falsa el if del ciclo
+                    system("clear");
+                    cout<<" "<<endl;
+                    cout<<"Te quedan: "<<4-(i+1)<<" Intentos"<<endl<<endl;
+                    
+                    if(i==3)//De cierra el programa
+                    {
+                        cout<<" "<<endl;
+                        cout<<"Reinica el programa"<<endl<<endl;
+                        cout<<" "<<endl;
+                    }
+                    
+                }
+            }
+            
+        }else{//Caso para cuando el usuario no se ha creado con exito
+            
+            Security(user, userVect);
+        }
+    }
+}
+
+
 //Funcion que crea Usuarios
-bool Create_Acount(bool NotUser,string UserMatrix[6][6])
+bool Create_Acount(bool NotUser,USER userVect[9])
 {
 
     int CountUsers=0,fila=0;
@@ -128,72 +226,53 @@ bool Create_Acount(bool NotUser,string UserMatrix[6][6])
     if (NotUser==false)//CREAR Cuenta en VectUsers.
     {
         bool state=false;
-        cout<<" -| Oh you need create a Acount!!!"<<endl;
+        cout<<" -| !Oh you need create a Acount!"<<endl;
         cout<<"  "<<endl;
         cout<<" -| Very well now i will help to create your user."<<endl;
         cout<<"  "<<endl;
-        //Gurdando Usuarios en La Matrix De Usuarios
+        
+        //Gurdando Usuario en VectUsers.
         for(CountUsers=CountUsers;state==false;CountUsers++)
         {
+            userVect[CountUsers].id=CountUsers;
             cout<<" -| Now you are a User: "<<CountUsers+1<<endl;
             cout<<"  "<<endl;
 
-            for (fila=0;fila<=6;fila++)
-            {
-
-                if(fila==0)
-                {
-                    cout<<" -| First: Give Me Your First Name and Last Name: ";
-                    cin>>UserMatrix[fila][CountUsers];
-                    cout<<"  "<<endl;
-                }
-                if(fila==1)
-                {
-                    bool valido=true;
-                    do{
-                        cout<<" -| Second: Give Me Your Javeriana Email: ";
-                        cin>>UserMatrix[fila][CountUsers];
-                        valido=validarEmail(UserMatrix[fila][CountUsers]);
-                        if(!valido)
-                            cout<<"Error: There is already a user registered with that email"<<endl;
-                        cout<<"  "<<endl;
-                    }while(!valido);
-                }
-                if(fila==2)
-                {
-                    cout<<" -| Third: Give Me Your Profession: ";
-                    cin>>UserMatrix[fila][CountUsers];
-                    cout<<"  "<<endl;
-                }
-                if(fila==3)
-                {
-                    cout<<" -| Quarter: Give Me Your Sex (M/F): ";
-                    cin>>UserMatrix[fila][CountUsers];
-                    cout<<"  "<<endl;
-                }
-                if(fila==4)
-                {
-                    cout<<" -| Fifth: Give Me Your Born Date(DD/MM/AA): ";
-                    cin>>UserMatrix[fila][CountUsers];
-                    cout<<"  "<<endl;
-                }
-                if(fila==5)
-                {
-                    cout<<" -| Sixth: Create a Password: ";
-                    cin>>UserMatrix[fila][CountUsers];
-                    cout<<"  "<<endl;
-                }
-
-
-            }//For Fila End
+            cout<<" -| First: Give Me Your First Name and Last Name: ";
+            cin>>userVect[userVect[CountUsers].id].name;
+            cout<<"  "<<endl;
+                
+            cout<<" -| Second: Give Me Your Javeriana Email: ";
+            cin>>userVect[userVect[CountUsers].id].email;
+            cout<<"  "<<endl;
+                       
+            cout<<" -| Third: Give Me Your Profession: ";
+            cin>>userVect[userVect[CountUsers].id].Profession;
+            cout<<"  "<<endl;
+                
+            cout<<" -| Quarter: Give Me Your Sex (M/F): ";
+            cin>>userVect[userVect[CountUsers].id].sex;
+            cout<<"  "<<endl;
+                
+            cout<<" -| Fifth: Give Me Your Born Date(DD/MM/AA): ";
+            cin>>userVect[userVect[CountUsers].id].bornDate;
+            cout<<"  "<<endl;
+                
+            cout<<" -| Sixth: Create a Password: ";
+            cin>>userVect[userVect[CountUsers].id].password;
+            cout<<"  "<<endl;
+            
             state= true;
 
+            
         }//For Columns End
-       //Limpiamos la terminal
+        
+        //Limpiamos la terminal
         system("clear");
-        //Hora imprimimos la informaciÛn dada por el ususrio para verificarla.
+        
+        //Luego imprimimos la informacion dada por el ususrio para verificarla con el.
         cout<<"  "<<endl;
-        cout<<" -| "<<UserMatrix[0][CountUsers-1]<<" Check that it is the correct information. "<<endl;
+        cout<<" -| "<<userVect[userVect[CountUsers].id].name<<" Check that it is the correct information. "<<endl;
         cout<<"  "<<endl;
         CountUsers=CountUsers;
         state= false;
@@ -202,48 +281,37 @@ bool Create_Acount(bool NotUser,string UserMatrix[6][6])
             cout<<" -| Now you are a User: "<<CountUsers+1<<endl;
             cout<<"  "<<endl;
 
-            for (fila=0;fila<=6;fila++)
+            for (fila=userVect[CountUsers].id;fila<=userVect[CountUsers].id;fila++)
             {
-                if(fila==0)
-                {
                     cout<<" -| First: Your First Name and Last Name: "
-                    <<UserMatrix[fila][CountUsers];
+                    <<userVect[userVect[CountUsers].id].name;
                     cout<<"  "<<endl;
-                }
-                if(fila==1)
-                {
+                
                     cout<<" -| Second: Your Javeriana Email: "
-                    <<UserMatrix[fila][CountUsers];
+                    <<userVect[userVect[CountUsers].id].email;
                     cout<<"  "<<endl;
-                }
-                if(fila==2)
-                {
+                
                     cout<<" -| Third: Your Profession: "
-                    <<UserMatrix[fila][CountUsers];
+                    <<userVect[userVect[CountUsers].id].Profession;
                     cout<<"  "<<endl;
-                }
-                if(fila==3)
-                {
+                
                     cout<<" -| Quarter: Your Sex (M/F): "
-                    <<UserMatrix[fila][CountUsers];
+                    <<userVect[userVect[CountUsers].id].sex;
                     cout<<"  "<<endl;
-                }
-                if(fila==4)
-                {
+                
                     cout<<" -| Fifth: Your Born Date(DD/MM/AA): "
-                    <<UserMatrix[fila][CountUsers];
+                    <<userVect[userVect[CountUsers].id].bornDate;
                     cout<<"  "<<endl;
-                }
-                if(fila==5)
-                {
+                
                     cout<<" -| Sixth: Your Password: "
-                    <<UserMatrix[fila][CountUsers];
+                    <<userVect[userVect[CountUsers].id].password;
                     cout<<"  "<<endl;
-                }
-
-
+                    
+                state= true;
+                
             }//For Fila End
-            state= true;
+            
+            
         }//For Columns End
         cout<<" "<<endl;
         cout<<" -| Do you want to change something? (yes/no): ";
@@ -267,125 +335,333 @@ bool Create_Acount(bool NotUser,string UserMatrix[6][6])
 
 }
 
-bool validarEmail(string correo){
-    for(int i=0;i<6;i++){
-        if(correo==UserMatrix[1][i])
-            return true;
-    }
-    return true;
-}
 
-USER login()
+USER login(USER user,USER userVect[9])
 {
-    string correo;
-    string password;
-    bool auth;
-    string again;
-    USER user;
-    do{
-        cout<<" -| Give me your Javeriana email:"<<endl;
-        cin>>correo;
-        cout<<" -| Give me your password:"<<endl;
+    string email,password,again;
+    
+        cout<<" -| Give me your Javeriana email: ";
+        cin>>email;
+        cout<<" -| Give me your password: ";
         cin>>password;
-        user.email=correo;
-        user.password=password;
-        user.auth=true;
-        auth=authenticate(correo,password);
-        if(auth==true){
-            cout<<"Authentication Success!"<<endl;
-            return user;
-        }
-        else{
-            cout<<"Authentication Failed. Please, try again!"<<endl;
-            cout<<"Do you want to try again? (yes/no):"<<endl;
-            cin>>again;
-            if(again=="no"||again=="NO"||again=="n"||again=="N"){
-                user.auth=false;
+        cout<<" "<<endl;
+    
+    //Recorrido en el Vector USER buscando el usuario
+    for(int i = 0; i<9; i++)
+    {
+        if(userVect[i].email==email)
+        {
+            if(userVect[i].password==password)
+            {
+                user.id= i;
+                userVect[i].auth= true;
+                user.auth= userVect[i].auth;
+                cout<<" -| Authentication Success!"<<endl;
                 return user;
-            }
+            }else{user.auth=false;}
+            
+        }else{
+            user.auth=false;
             system("clear");
         }
-    }while(!auth);
+       
+    }
+
     return user;
 
 }
 
-bool authenticate(string correo,string password)
-{
-    bool r=true;
-    
-    for(int i=0;i<6;i++){
-        if(correo!=UserMatrix[1][i])
-        {
-            r= false;
-            
-        }
-        if(password!=UserMatrix[5][i])
-        {
-            r= false;
-        }
-            
-        r= true;
-    }
-    
-    return r;
-}
 
-void menu(USER user){
+void menu(USER user, USER userVect[9]){
     int opcion;
-    cout<<" -| Welcome to JANA Menu"<<endl;
-    cout<<" -| 1. Agregar Dispositivos"<<endl;
-    cout<<" -| 2. Eliminar Dispositivos"<<endl;
-    cout<<" -| 3. Listar Dispositivos"<<endl;
-    cout<<" -| 4. Modificar Caracteristicas Dispositivos"<<endl;
-    cout<<" -| 5. Modificar Funcionalidades Dispositivos"<<endl<<endl;
-    cout<<" -| Type the option do you want to access (1-8)"<<endl;
-    cin>>opcion;
+    
+    //Recorrer el VectroUsuario hasta el id para acceder a sus dispositivos
+    for(int i=0; i<=user.id; i++)
+    {
+        if(i == user.id)//Si solo si i es el numero de usuario mostrar
+        {
+            
+            cout<<" -| Welcome to JANA Menu"<<endl;
+            cout<<" -| 1. Agregar Dispositivos"<<endl;
+            cout<<" -| 2. Eliminar Dispositivos"<<endl;
+            cout<<" -| 3. Listar Dispositivos"<<endl;
+            cout<<" -| 4. Modificar Caracteristicas Dispositivos"<<endl;
+            cout<<" -| 5. Modificar Funcionalidades Dispositivos"<<endl;
+            cout<<" -| 6. Login Whit other Account User"<<endl<<endl;
+            
+            cout<<" -| Type the option do you want to access (1 to 5)"<<endl;
+            cin>>opcion;
 
-    switch(opcion){
-        case 1:
-            cout<<" -| Opcion: Agregar Dispositivos"<<endl;
-            func_agregar_dispositivos(user);
-            break;
-        case 2:
-            cout<<" -| Opcion: Eliminar Dispositivos"<<endl;
-            func_eliminar_dispositivos(user);
-            break;
-        case 3:
-            cout<<" -| Opcion: Listar Dispositivos"<<endl;
-            func_listar_dispositivos(user);
-            break;
-        case 4:
-            cout<<" -| Opcion: Modificar Caracteristicas Dispositivos"<<endl;
-            func_modificar_caracteristicas_dispositivos(user);
-            break;
-        case 5:
-            cout<<" -| Opcion: Modificar Funcionalidades Dispositivos"<<endl;
-            func_modificar_funcionalidades_dispositivos(user);
-            break;
-        default:
-            cout<<" -| Ingrese un numero de opcion valido"<<endl;
-            break;
+            switch(opcion){
+                case 1:
+                    cout<<" -| Opcion: Agregar Dispositivos"<<endl;
+                    func_agregar_dispositivos(user,userVect);
+                    break;
+                case 2:
+                    cout<<" -| Opcion: Eliminar Dispositivos"<<endl;
+                    func_eliminar_dispositivos(user,userVect);
+                    break;
+                case 3:
+                    cout<<" -| Opcion: Listar Dispositivos"<<endl;
+                    func_listar_dispositivos(user,userVect);
+                    break;
+                case 4:
+                    cout<<" -| Opcion: Modificar Caracteristicas Dispositivos"<<endl;
+                    func_modificar_caracteristicas_dispositivos(user,userVect);
+                    break;
+                case 5:
+                    cout<<" -| Opcion: Modificar Funcionalidades Dispositivos"<<endl;
+                    func_modificar_funcionalidades_dispositivos(user,userVect);
+                    break;
+                case 6:
+                cout<<" -| Opcion: Login whit other account user"<<endl;
+                        break;
+                default:
+                    cout<<" -| Ingrese un numero de opcion valido"<<endl;
+                    break;
+            }
+            
+        }
+    }
+    
+    
+}
+
+//Funcionalidades del Menu
+//userVect[user.id].dispo[0].name=Televisor .... Lampara.
+
+void func_agregar_dispositivos(USER user,USER userVect[9])
+{
+    int numeroDispo=0;
+    char tipo='f',volver;
+    //recorrer hasta llegar al id de usuario que solucita la funcion
+    
+    //Menu Interno
+    cout<<" "<<endl;
+    cout<<" -| Dispositivo de Tipo"<<endl;
+    cout<<" "<<endl;
+    
+    cout<<"A -> Televisor "<<endl;
+    cout<<"B -> Cerradura "<<endl;
+    cout<<"C -> Cortina "<<endl;
+    cout<<"D -> Lampara "<<endl;
+    cout<<"E -> Volver al Menu inicial "<<endl;
+    cout<<" "<<endl;
+    
+    cout<<" -| Selecciona un tipo: ";
+    cin>>tipo;
+    cout<<" "<<endl;
+    
+    cout<<" -| Nota: La capa gratitua solo pueden agregar 1 dispositivo por tipo :) "<<endl;
+    cout<<" -| Nota: Si eliges el mismo tipo 2 veses queda guardado con la ultina configuracion "<<endl;
+    cout<<" "<<endl;
+    
+    for(int i=0;i<=user.id;i++)//Busca al Usuario en el vector
+    {
+        if(user.id==i)//Extrae su indice para agregar la informacion de los dispositivos
+        {
+            cout<<" -| Agrega tu Dispositivo";
+             cout<<" "<<endl;
+            
+            if(tipo=='A'||tipo=='a')
+            {
+                cout<<" -| Dispositivo Tipo: Televisor"<<endl;
+                cout<<"  "<<endl;
+                
+                cout<<" -| Nombre del Dispositivo: ";
+                cin>>userVect[user.id].dispo[0].name;
+                cout<<"  "<<endl;
+                
+                cout<<" -| Marca del Dispositivo: ";
+                cin>>userVect[user.id].dispo[0].brand;
+                cout<<"  "<<endl;
+                
+                cout<<" -| Posicion del Dispositivo: ";
+                cin>>userVect[user.id].dispo[0].position;
+                cout<<"  "<<endl;
+                
+                //Funcionalidades de los Dispo
+                
+                cout<<" -| Volumen del Dispositivo (0 -> 10): ";
+                cin>>userVect[user.id].dispo[0].vol;
+                cout<<"  "<<endl;
+                
+                cout<<" -| Canal del Dispositivo (0 -> 125): ";
+                cin>>userVect[user.id].dispo[0].chanel;
+                cout<<"  "<<endl;
+                
+                cout<<" -| Estado del Dispositivo (Apagado/Prendido): ";
+                cin>>userVect[user.id].dispo[0].estate;
+                cout<<"  "<<endl;
+            
+                userVect[user.id].dispo[0].lumino="N/A";
+                
+                numeroDispo++;
+                cout<<"Dispositivo Creado"<<endl;
+                cout<<"  "<<endl;
+                
+                func_agregar_dispositivos(user,userVect);
+                
+            }else{
+                
+                if(tipo=='B'||tipo=='b')
+                {
+                    cout<<" -| Dispositivo Tipo: Cerradura"<<endl;
+                    cout<<"  "<<endl;
+                    
+                    cout<<" -| Nombre del Dispositivo: ";
+                    cin>>userVect[user.id].dispo[1].name;
+                    cout<<"  "<<endl;
+                    
+                    cout<<" -| Marca del Dispositivo: ";
+                    cin>>userVect[user.id].dispo[1].brand;
+                    cout<<"  "<<endl;
+                    
+                    cout<<" -| Posicion del Dispositivo: ";
+                    cin>>userVect[user.id].dispo[1].position;
+                    cout<<"  "<<endl;
+                    
+                    cout<<" -| Estado del Dispositivo (Abierto/Cerrado): ";
+                    cin>>userVect[user.id].dispo[0].estate;
+                    cout<<"  "<<endl;
+                    
+                    userVect[user.id].dispo[0].vol="N/A";
+                    userVect[user.id].dispo[0].chanel="N/A";
+                    userVect[user.id].dispo[0].lumino="N/A";
+                    
+                    numeroDispo++;
+                    
+                    cout<<"Dispositivo Creado"<<endl;
+                    cout<<"  "<<endl;
+                    
+                    func_agregar_dispositivos(user,userVect);
+                    
+                }else{
+                    if(tipo=='C'||tipo=='c')
+                    {
+                        cout<<" -| Dispositivo Tipo: Cortina"<<endl;
+                        cout<<"  "<<endl;
+                        
+                        cout<<" -| Nombre del Dispositivo: ";
+                        cin>>userVect[user.id].dispo[2].name;
+                        cout<<"  "<<endl;
+                        
+                        cout<<" -| Marca del Dispositivo: ";
+                        cin>>userVect[user.id].dispo[2].brand;
+                        cout<<"  "<<endl;
+                        
+                        cout<<" -| Posicion del Dispositivo: ";
+                        cin>>userVect[user.id].dispo[2].position;
+                        cout<<"  "<<endl;
+                        
+                        cout<<" -| Estado del Dispositivo (Abierto/Cerrado): ";
+                        cin>>userVect[user.id].dispo[0].estate;
+                        cout<<"  "<<endl;
+                        
+                        userVect[user.id].dispo[0].vol="N/A";
+                        userVect[user.id].dispo[0].chanel="N/A";
+                        userVect[user.id].dispo[0].lumino="N/A";
+                        
+                        numeroDispo++;
+                        
+                        cout<<"Dispositivo Creado"<<endl;
+                        cout<<"  "<<endl;
+                        
+                        func_agregar_dispositivos(user,userVect);
+                        
+                    }else{
+                        
+                        if(tipo=='D'||tipo=='d')
+                        {
+                            cout<<" -| Dispositivo Tipo: Lampara"<<endl;
+                            cout<<"  "<<endl;
+                            
+                            cout<<" -| Nombre del Dispositivo: ";
+                            cin>>userVect[user.id].dispo[3].name;
+                            cout<<"  "<<endl;
+                            
+                            cout<<" -| Marca del Dispositivo: ";
+                            cin>>userVect[user.id].dispo[3].brand;
+                            cout<<"  "<<endl;
+                            
+                            cout<<" -| Posicion del Dispositivo: ";
+                            cin>>userVect[user.id].dispo[3].position;
+                            cout<<"  "<<endl;
+                            
+                            cout<<" -| Estado del Dispositivo (Abierto/Cerrado): ";
+                            cin>>userVect[user.id].dispo[0].estate;
+                            cout<<"  "<<endl;
+                            
+                            cout<<" -| Luminosidad del Dispositivo (0 -> 10): ";
+                            cin>>userVect[user.id].dispo[0].lumino;
+                            cout<<"  "<<endl;
+                            
+                            userVect[user.id].dispo[0].vol="N/A";
+                            userVect[user.id].dispo[0].chanel="N/A";
+                            
+                            numeroDispo++;
+                            cout<<"Dispositivo Creado"<<endl;
+                            cout<<"  "<<endl;
+                            
+                            func_agregar_dispositivos(user,userVect);
+                            
+                        }else{
+                            if(tipo=='E'||tipo=='e')
+                            {
+                                system("clear");
+                                menu(user,userVect);
+                            
+                            }else{
+                                
+                                cout<<"  "<<endl;
+                                cout<<"Tipo Incorrecto"<<endl;
+                                cout<<"  "<<endl;
+                                system("clear");
+                                func_agregar_dispositivos(user,userVect);
+                            }
+                        }
+                    }
+                }
+            }
+                
+                
+            if(numeroDispo==4)
+            {
+                cout<<"Ya copaste el limite de la capa gratis. Si no deseas cambiar"<<endl;
+                cout<<"la configuracion de tus dispositivos o re escribirlos te sujiero"<<endl;
+                cout<<"volver al menu inicial o pagar uns susbcripcion por el progrmama"<<endl;
+                cout<<"Desea volver al menu inicial (S/n): "<<endl;
+                cin>>volver;
+                
+                if(volver=='s'||volver=='S')
+                {
+                    system("clear");
+                    menu(user,userVect);
+                    
+                }else{
+                    
+                    system("clear");
+                    func_agregar_dispositivos(user,userVect);
+                }
+            }
+            
+        }
     }
 }
 
-
-void func_agregar_dispositivos(USER user){
-
-}
-
-void func_eliminar_dispositivos(USER user){
+void func_eliminar_dispositivos(USER user,USER userVect[9]){
 
 }
 
-void func_listar_dispositivos(USER user){
+void func_listar_dispositivos(USER user,USER userVect[9]){
 
 }
 
-void func_modificar_caracteristicas_dispositivos(USER user){
+void func_modificar_caracteristicas_dispositivos(USER user,USER userVect[9]){
 
 }
 
-void func_modificar_funcionalidades_dispositivos(USER user){
+void func_modificar_funcionalidades_dispositivos(USER user,USER userVect[9]){
 
 }
+
