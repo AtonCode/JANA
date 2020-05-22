@@ -11,8 +11,7 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
-#include <cstdlib>
-#define SIZE 6
+
 
 using namespace std;
 
@@ -41,19 +40,19 @@ struct USER{
     bool auth;
 };
 
-//Declaracion de Funciones
+//Declaracion de Funciones de Usaurio
 bool welcome();
-void Security(USER user,USER userVect[9]);
 bool Create_Acount(bool NotUser, USER userVect[9]);
 USER login(USER user,USER userVect[9]);
+void Security(USER user,USER userVect[9]);
+
+//Funciones de Funcionalidades de la app
 void menu(USER user,USER userVect[9]);
 void func_agregar_dispositivos(USER user,USER userVect[9]);
 void func_eliminar_dispositivos(USER user,USER userVect[9]);
 void func_listar_dispositivos(USER user,USER userVect[9]);
 void func_modificar_caracteristicas_dispositivos(USER user,USER userVect[9]);
 void func_modificar_funcionalidades_dispositivos(USER user,USER userVect[9]);
-
-
 
 //Funcion Principal
 int main()
@@ -117,113 +116,16 @@ bool welcome()
     return estado;
 }
 
-
-void Security(USER user,USER userVect[9])
-{
-    //Variables de Retorno de funciones
-    bool Func_Welcome=false;
-    bool Func_Create_Acount = false;
-    USER Func_login;
-    
-    //Se limpia la terminal
-    system("clear");
-    
-    //Inicio de la logica de programa
-    Func_Welcome= welcome();//Retorna si ya es usuario o no
-    
-    
-    if(Func_Welcome==true)//Si ya es usuario ejecuta el ciclo de aut para login
-    {
-        //Ciclo se repite solo 4 veces si la aut no es exitosa
-        //Si se exede los intentos cierra el programa
-        for(int i= 0; i<= 3 && Func_login.auth == false; i++)
-        {
-            
-            cout<<" -| Now Login"<<endl;
-            cout<<" "<<endl;
-            Func_login=login(user, userVect);
-            
-            //Si la aut del user en el login es positiva envia al usuario a su menu
-            if(Func_login.auth==true)
-            {
-                system("clear");
-                menu(user,userVect);
-                cout<<" "<<endl;
-                
-                
-            }else{//De lo contrario cuenta los intentos para hacer falsa el if del ciclo
-                system("clear");
-                cout<<" "<<endl;
-                cout<<"Te quedan: "<<4-(i+1)<<" Intentos"<<endl<<endl;
-                
-                if(i==3)//De cierra el programa
-                {
-                    cout<<" "<<endl;
-                    cout<<"Reinica el programa"<<endl<<endl;
-                    cout<<" "<<endl;
-                }
-                
-            }
-        }
-
-        
-    }else{//Caso cuando es un usuario nuevo y no esta registrado
-        
-        //Funcion Crea usuario nuevo y retorna un booleano para el caso exitoso
-        Func_Create_Acount=Create_Acount(Func_Welcome, userVect);
-        
-        //Condicion para evaluar si el usuario ha sido correcatemente creado
-        if(Func_Create_Acount==true)
-        {
-            //Ciclo se repite solo 4 veces si la aut no es exitosa
-            //Si se exede los intentos cierra el programa
-            for(int i= 0; i<= 3 && Func_login.auth == false; i++)
-            {
-                
-                cout<<" -| Now Login"<<endl;
-                cout<<" "<<endl;
-                Func_login=login(user, userVect);
-                
-                //Si la aut del user en el login es positiva envia al usuario a su menu
-                if(Func_login.auth==true)
-                {
-                    system("clear");
-                    menu(user,userVect);
-                    cout<<" "<<endl;
-                    
-                    
-                }else{//De lo contrario cuenta los intentos para hacer falsa el if del ciclo
-                    system("clear");
-                    cout<<" "<<endl;
-                    cout<<"Te quedan: "<<4-(i+1)<<" Intentos"<<endl<<endl;
-                    
-                    if(i==3)//De cierra el programa
-                    {
-                        cout<<" "<<endl;
-                        cout<<"Reinica el programa"<<endl<<endl;
-                        cout<<" "<<endl;
-                    }
-                    
-                }
-            }
-            
-        }else{//Caso para cuando el usuario no se ha creado con exito
-            
-            Security(user, userVect);
-        }
-    }
-}
-
-
 //Funcion que crea Usuarios
 bool Create_Acount(bool NotUser,USER userVect[9])
 {
-
-    int CountUsers=0,fila=0;
+    //INICIALIZACION DE VARIABLES INTERNAS
+    int CountUsers=0;
     bool pass=true;
     string change="j";
 
-    if (NotUser==false)//CREAR Cuenta en VectUsers.
+    //CONTROL DEL PROGRAMA
+    if (NotUser==false)//SI NO ES USUARIO ENTRA DE LO CONTRARIO SI.
     {
         bool state=false;
         cout<<" -| !Oh you need create a Acount!"<<endl;
@@ -231,110 +133,115 @@ bool Create_Acount(bool NotUser,USER userVect[9])
         cout<<" -| Very well now i will help to create your user."<<endl;
         cout<<"  "<<endl;
         
-        //Gurdando Usuario en VectUsers.
+        //CICLO GUARDA LA INFORMACION DE EL NUEVO USUARIO AL USERVECT.
         for(CountUsers=CountUsers;state==false;CountUsers++)
         {
-            userVect[CountUsers].id=CountUsers;
+            //REQUISITO DE INFORMACION REQUERIDA PARA LA CREACION DE USUARIO.
+            userVect[CountUsers].id=CountUsers;//CONTADOR DE USUARIOS.
+            
+            //LE DICE AL USUARIO EL NUMERO DE CLIENTE QUE SERA.
             cout<<" -| Now you are a User: "<<CountUsers+1<<endl;
             cout<<"  "<<endl;
-
+            
+            //SE REALIZA LA CAPTACION DE INFORMACION DE USUARIO.
             cout<<" -| First: Give Me Your First Name and Last Name: ";
-            cin>>userVect[userVect[CountUsers].id].name;
+            cin>>userVect[userVect[CountUsers].id].name;//NOMBRE
             cout<<"  "<<endl;
                 
             cout<<" -| Second: Give Me Your Javeriana Email: ";
-            cin>>userVect[userVect[CountUsers].id].email;
+            cin>>userVect[userVect[CountUsers].id].email;//EMAIL
             cout<<"  "<<endl;
                        
             cout<<" -| Third: Give Me Your Profession: ";
-            cin>>userVect[userVect[CountUsers].id].Profession;
+            cin>>userVect[userVect[CountUsers].id].Profession;//PROFECION
             cout<<"  "<<endl;
                 
             cout<<" -| Quarter: Give Me Your Sex (M/F): ";
-            cin>>userVect[userVect[CountUsers].id].sex;
+            cin>>userVect[userVect[CountUsers].id].sex;//SEXO
             cout<<"  "<<endl;
                 
             cout<<" -| Fifth: Give Me Your Born Date(DD/MM/AA): ";
-            cin>>userVect[userVect[CountUsers].id].bornDate;
+            cin>>userVect[userVect[CountUsers].id].bornDate;//AÑO DE NACIMIENTO
             cout<<"  "<<endl;
                 
             cout<<" -| Sixth: Create a Password: ";
-            cin>>userVect[userVect[CountUsers].id].password;
+            cin>>userVect[userVect[CountUsers].id].password;//CONTRASEÑA
             cout<<"  "<<endl;
             
-            state= true;
-
+            //SE LIMPIA LA ANTERIOR INFORMACION
+            system("clear");
             
-        }//For Columns End
-        
-        //Limpiamos la terminal
-        system("clear");
-        
-        //Luego imprimimos la informacion dada por el ususrio para verificarla con el.
-        cout<<"  "<<endl;
-        cout<<" -| "<<userVect[userVect[CountUsers].id].name<<" Check that it is the correct information. "<<endl;
-        cout<<"  "<<endl;
-        CountUsers=CountUsers;
-        state= false;
-        for(CountUsers=CountUsers-1;state==false;CountUsers++)
-        {
+            //INICIA LA VERIFICACION DE LOS DATOS ANTERIORMENTE INGRESADOS
+            
+            cout<<" -| "<<userVect[userVect[CountUsers].id].name<<" Check that it is the correct information. "<<endl;
+            cout<<"  "<<endl;
+            
             cout<<" -| Now you are a User: "<<CountUsers+1<<endl;
             cout<<"  "<<endl;
-
-            for (fila=userVect[CountUsers].id;fila<=userVect[CountUsers].id;fila++)
+            
+            cout<<" -| First: Your First Name and Last Name: "
+                <<userVect[userVect[CountUsers].id].name;
+                cout<<"  "<<endl;
+            
+                cout<<" -| Second: Your Javeriana Email: "
+                <<userVect[userVect[CountUsers].id].email;
+                cout<<"  "<<endl;
+            
+                cout<<" -| Third: Your Profession: "
+                <<userVect[userVect[CountUsers].id].Profession;
+                cout<<"  "<<endl;
+            
+                cout<<" -| Quarter: Your Sex (M/F): "
+                <<userVect[userVect[CountUsers].id].sex;
+                cout<<"  "<<endl;
+            
+                cout<<" -| Fifth: Your Born Date(DD/MM/AA): "
+                <<userVect[userVect[CountUsers].id].bornDate;
+                cout<<"  "<<endl;
+            
+                cout<<" -| Sixth: Your Password: "
+                <<userVect[userVect[CountUsers].id].password;
+                cout<<"  "<<endl;
+            
+            ///ENCASO DE SER POSITIVO SE RE INICIA EL CICLO DE LO CONTRARIO
+            ///SE SALE DEL CICLO Y LA FUNCION RETORNA VERDADERA.
+            cout<<" "<<endl;
+            cout<<" -| Do you want to change something? (yes/no): ";
+            cin>>change;
+            cout<<" "<<endl;
+            
+            ///ANALIZADOR DE LA RESPUESTA
+            if(change=="y" || change=="yes" || change=="Y" || change=="YES")
             {
-                    cout<<" -| First: Your First Name and Last Name: "
-                    <<userVect[userVect[CountUsers].id].name;
-                    cout<<"  "<<endl;
+                ///LIMPIA LA  ANTERIOR INFORMACION
+                system("clear");
                 
-                    cout<<" -| Second: Your Javeriana Email: "
-                    <<userVect[userVect[CountUsers].id].email;
-                    cout<<"  "<<endl;
-                
-                    cout<<" -| Third: Your Profession: "
-                    <<userVect[userVect[CountUsers].id].Profession;
-                    cout<<"  "<<endl;
-                
-                    cout<<" -| Quarter: Your Sex (M/F): "
-                    <<userVect[userVect[CountUsers].id].sex;
-                    cout<<"  "<<endl;
-                
-                    cout<<" -| Fifth: Your Born Date(DD/MM/AA): "
-                    <<userVect[userVect[CountUsers].id].bornDate;
-                    cout<<"  "<<endl;
-                
-                    cout<<" -| Sixth: Your Password: "
-                    <<userVect[userVect[CountUsers].id].password;
-                    cout<<"  "<<endl;
-                    
-                state= true;
-                
-            }//For Fila End
-            
-            
-        }//For Columns End
-        cout<<" "<<endl;
-        cout<<" -| Do you want to change something? (yes/no): ";
-        cin>>change;
-        if(change=="y" || change=="yes" || change=="Y" || change=="YES")
-        {
-            system("clear");
-            pass=false;
+                ///CONTROLADORES
+                pass=false;
+                state=false;
 
-        }else{
-            pass=true;
-            cout<<" "<<endl;
-            cout<<" -| Successful account process!!! "<<endl;
-            CountUsers++;
-            cout<<" "<<endl;
-        }
-    //Uso solo para saber el orden de las columnas
+            }else{
+                
+                ///LIMPIA LA  ANTERIOR INFORMACION
+                system("clear");
+                cout<<" -| Successful account process!!!"<<endl;
+                CountUsers++;///SE AUMENTA EL CONTADOR DEL USUARIO
+                cout<<" "<<endl;
+                
+                ///CONTROLADORES
+                pass=true;//RETORNA VERDADERO LA FUNCION
+                state=true;//CIERRA EL CICLO.
+                    
+            }
+
+        }//FOR END
 
     }//IF END
+    
+    
     return pass;
 
 }
-
 
 USER login(USER user,USER userVect[9])
 {
@@ -371,6 +278,103 @@ USER login(USER user,USER userVect[9])
 
 }
 
+
+void Security(USER user,USER userVect[9])
+{
+    //Variables de Retorno de funciones
+    bool Func_Welcome=false;
+    bool Func_Create_Acount = false;
+    USER Func_login;
+    
+    //Se limpia la terminal de la informacion anterior
+    system("clear");
+    
+    //Inicio de la logica de programa
+    Func_Welcome= welcome();//Retorna si ya es usuario o no
+    
+    
+    if(Func_Welcome==true)//Si ya es usuario ejecuta el ciclo de aut para login
+    {
+        //Ciclo se repite solo 4 veces si la aut no es exitosa
+        //Si se exede los intentos cierra el programa
+        Func_login.auth = false;
+        for(int i= 0; i<= 3 && Func_login.auth == false; i++)//Maximo 4 intentos de login
+        {
+            
+            cout<<" -| Now Login"<<endl;
+            cout<<" "<<endl;
+            Func_login=login(user, userVect);//Retorna true si el login es exitoso
+            
+            //Si la aut del user en el login es positiva envia al usuario a su menu
+            if(Func_login.auth==true)
+            {
+                system("clear");
+                menu(user,userVect);//Menu unico del usuario
+                cout<<" "<<endl;
+                
+            }else{//De lo contrario el programa cuenta los intentos para hacer falsa el if de los intentos del login
+                
+                system("clear");//Limpiamos los anteriores intentos de la pantalla
+                cout<<" "<<endl;
+                cout<<"Te quedan: "<<4-(i+1)<<" Intentos"<<endl<<endl;
+                
+                if(i==3)//Se cierra el programa cuando se alcancen el maximo de intentos
+                {
+                    cout<<" "<<endl;
+                    cout<<"Reinica el programa"<<endl<<endl;
+                    cout<<" "<<endl;
+                }
+                
+            }
+        }
+
+        
+    }else{//Caso cuando es un usuario nuevo y no esta registrado o es el primer inicio del programa
+        
+        //Funcion Crea usuario nuevo y retorna un booleano para el caso exitoso
+        Func_Create_Acount=Create_Acount(Func_Welcome, userVect);
+        
+        //Condicion para evaluar si el usuario ha sido correcatemente creado
+        if(Func_Create_Acount==true)
+        {
+            //Ciclo se repite solo 4 veces si la aut no es exitosa
+            //Si se exede los intentos cierra el programa
+            for(int i= 0; i<= 3 && Func_login.auth == false; i++)
+            {
+                cout<<" -| Now Login"<<endl;
+                cout<<" "<<endl;
+                Func_login=login(user, userVect);
+                
+                //Si la aut del user en el login es positiva envia al usuario a su menu
+                if(Func_login.auth==true)
+                {
+                    system("clear");
+                    menu(user,userVect);
+                    cout<<" "<<endl;
+                    
+                }else{//De lo contrario cuenta los intentos para hacer falsa el if del ciclo
+                    system("clear");
+                    cout<<" "<<endl;
+                    cout<<"Te quedan: "<<4-(i+1)<<" Intentos"<<endl<<endl;
+                    
+                    if(i==3)//De cierra el programa
+                    {
+                        cout<<" "<<endl;
+                        cout<<"Reinica el programa"<<endl<<endl;
+                        cout<<" "<<endl;
+                    }
+                    
+                }
+            }
+            
+        }else{
+              //Caso para cuando el usuario no se ha creado con exito
+             //Se repite todo desde el principio sin borrar los anteriores usuarios
+            //Que ya estubiran registrados.
+            Security(user, userVect);
+        }
+    }
+}
 
 void menu(USER user, USER userVect[9]){
     int opcion;
@@ -664,4 +668,5 @@ void func_modificar_caracteristicas_dispositivos(USER user,USER userVect[9]){
 void func_modificar_funcionalidades_dispositivos(USER user,USER userVect[9]){
 
 }
+
 

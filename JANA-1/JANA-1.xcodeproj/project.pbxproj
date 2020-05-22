@@ -88,7 +88,7 @@
 		00045F3D24661FE3007C6B6B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = aslbank.com;
 				TargetAttributes = {
 					00045F4424661FE3007C6B6B = {
@@ -238,6 +238,7 @@
 		00045F4D24661FE3007C6B6B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C45A35J4CC;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -248,6 +249,7 @@
 		00045F4E24661FE3007C6B6B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C45A35J4CC;
 				ENABLE_HARDENED_RUNTIME = YES;
