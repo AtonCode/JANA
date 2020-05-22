@@ -109,7 +109,6 @@ bool welcome()
     {
         //En caso de que sea un nuevo usuario.
         estado=false;
-
     }
 
     //Se retorna el resultado de la evaluacion.
@@ -121,7 +120,6 @@ bool Create_Acount(bool NotUser,USER userVect[9])
 {
     //INICIALIZACION DE VARIABLES INTERNAS
     int CountUsers=0;
-    bool pass=true;
     string change="j";
 
     //CONTROL DEL PROGRAMA
@@ -217,32 +215,32 @@ bool Create_Acount(bool NotUser,USER userVect[9])
                 system("clear");
                 
                 ///CONTROLADORES
-                pass=false;
-                state=false;
+                state=false;//NO CIERRA EL CICLO.
+                return false;//RETORNA FALSE LA FUNCION
 
             }else{
                 
                 ///LIMPIA LA  ANTERIOR INFORMACION
                 system("clear");
-                cout<<" -| Successful account process!!!"<<endl;
                 CountUsers++;///SE AUMENTA EL CONTADOR DEL USUARIO
-                cout<<" "<<endl;
                 
                 ///CONTROLADORES
-                pass=true;//RETORNA VERDADERO LA FUNCION
                 state=true;//CIERRA EL CICLO.
-                    
+                
             }
 
         }//FOR END
 
+        cout<<" -| Successful account process!!!"<<endl;
+        cout<<" "<<endl;
+        return true;//RETORNA VERDADERO LA FUNCION
+        
     }//IF END
     
-    
-    return pass;
-
+    return true;//RETORNA VERDADERO LA FUNCION
 }
 
+///VERIFICA SI UN USUARIO ESTA REGISTRADO.
 USER login(USER user,USER userVect[9])
 {
     string email,password,again;
@@ -338,7 +336,8 @@ void Security(USER user,USER userVect[9])
         if(Func_Create_Acount==true)
         {
             //Ciclo se repite solo 4 veces si la aut no es exitosa
-            //Si se exede los intentos cierra el programa
+            //Si se exede los intentos cierra el programa.
+            Func_login.auth = false;
             for(int i= 0; i<= 3 && Func_login.auth == false; i++)
             {
                 cout<<" -| Now Login"<<endl;
