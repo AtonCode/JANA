@@ -47,7 +47,7 @@ USER login(USER user,USER userVect[9]);
 void Security(USER user,USER userVect[9]);
 
 //Funciones de Funcionalidades de la app
-void menu(USER user, USER Func_login,USER userVect[9]);
+void menu(USER Func_login,USER userVect[9]);
 void func_agregar_dispositivos(USER Func_login,USER userVect[9]);
 void func_eliminar_dispositivos(USER Func_login,USER userVect[9]);
 void func_listar_dispositivos(USER Func_login,USER userVect[9]);
@@ -311,7 +311,7 @@ void Security(USER user,USER userVect[9])
             if(Func_login.auth==true)
             {
                 system("clear");
-                menu(user,Func_login,userVect);
+                menu(Func_login,userVect);
                 cout<<" "<<endl;
                 
             }else{//De lo contrario el programa cuenta los intentos para hacer falsa el if de los intentos del login
@@ -354,7 +354,7 @@ void Security(USER user,USER userVect[9])
                 if(Func_login.auth==true)
                 {
                     system("clear");///SE LIMPIA LA INFORMACION ANTERIOR
-                    menu(user,Func_login,userVect);
+                    menu(Func_login,userVect);
                     cout<<" "<<endl;
                     
                 }else{//DE LO CONTRAARIO CUENTA LOS INTENTOS PARA LUEGO CERRAR EL CICLO Y EL PROGRAMA.
@@ -382,10 +382,11 @@ void Security(USER user,USER userVect[9])
     }
 }
 
-void menu(USER user,USER Func_login, USER userVect[9]){
+void menu(USER Func_login, USER userVect[9]){
     
     ///VARIABLE INTERNA DE CONTROL
     int opcion;
+    //bool NotUser=false;
     
     //BUSCAR EL USUARIO POR SU ID EN EL USERVECT PARA GURADAR TODO LOS QUE SE HAGA EN ESTE MENU
     for(int i= 0; i < 9; i++)///MAXIMO 9 USUARIOS
@@ -410,7 +411,7 @@ void menu(USER user,USER Func_login, USER userVect[9]){
             switch(opcion){
                 case 1:
                     cout<<" -| Opcion: Agregar Dispositivos"<<endl;
-                    func_agregar_dispositivos(Func_login,userVect);
+                   func_agregar_dispositivos(Func_login,userVect);
                     break;
                 case 2:
                     cout<<" -| Opcion: Eliminar Dispositivos"<<endl;
@@ -430,7 +431,8 @@ void menu(USER user,USER Func_login, USER userVect[9]){
                     break;
                 case 6:
                 cout<<" -| Opcion: Login whit other account user"<<endl;
-                        Security(user,userVect);
+                        //Security(user,userVect);
+                        //Create_Acount(NotUser,userVect);
                         break;
                 default:
                     cout<<" -| Ingrese un numero de opcion valido"<<endl;
@@ -444,7 +446,8 @@ void menu(USER user,USER Func_login, USER userVect[9]){
 
 //Funcionalidades del Menu
 //userVect[user.id].dispo[0].name=Televisor .... Lampara.
-void func_agregar_dispositivos(USER user, USER Func_login, USER userVect[9])
+
+void func_agregar_dispositivos(USER Func_login, USER userVect[9])
 {
     int numeroDispo=0;
     char tipo='f',volver;
@@ -623,7 +626,7 @@ void func_agregar_dispositivos(USER user, USER Func_login, USER userVect[9])
                             if(tipo=='E'||tipo=='e')
                             {
                                 system("clear");
-                                menu(user,Func_login,userVect);
+                                menu(Func_login,userVect);
                             
                             }else{
                                 
@@ -650,7 +653,7 @@ void func_agregar_dispositivos(USER user, USER Func_login, USER userVect[9])
                 if(volver=='s'||volver=='S')
                 {
                     system("clear");
-                    menu(user,Func_login,userVect);
+                    menu(Func_login,userVect);
                     
                 }else{
                     
