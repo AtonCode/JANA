@@ -402,7 +402,7 @@ void menu(USER Func_login, USER userVect[9]){
             cout<<" -| 3. Listar Dispositivos"<<endl;
             cout<<" -| 4. Modificar Caracteristicas Dispositivos"<<endl;
             cout<<" -| 5. Modificar Funcionalidades Dispositivos"<<endl;
-            cout<<" -| 6. Login Whit other Account User"<<endl<<endl;
+            //cout<<" -| 6. Login Whit other Account User"<<endl<<endl;
             
             cout<<" -| Type the option do you want to access (1 to 5): ";
             cin>>opcion;
@@ -431,8 +431,10 @@ void menu(USER Func_login, USER userVect[9]){
                     break;
                 case 6:
                 cout<<" -| Opcion: Login whit other account user"<<endl;
-                        //Security(user,userVect);
-                        //Create_Acount(NotUser,userVect);
+                        //PLUS
+                        //¿COMO VOLVER AL PRINCIPO SIN BORRAR LO ANTERIOR?
+                        //Security(user,userVect); ESATA NO FUNCIONA BORRA TODO
+                        //Create_Acount(NotUser,userVect); POR SI SOLA NO HACE NADA
                         break;
                 default:
                     cout<<" -| Ingrese un numero de opcion valido"<<endl;
@@ -666,20 +668,30 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
     }
 }
 
-void func_eliminar_dispositivos(USER Func_login,USER userVect[9]){
+void func_eliminar_dispositivos(USER Func_login,USER userVect[9])
+{
+    //OBJETIVO ELIMINAR LOS DISPOSITIVOS CREADOS.
 
 }
 
-void func_listar_dispositivos(USER Func_login,USER userVect[9]){
+void func_listar_dispositivos(USER Func_login,USER userVect[9])
+{
+    //OBJETIVO DIBUJAR LOS DISPOSITIVOS CREADOS Y ELIMINADOS
+    
+    
+}
+
+void func_modificar_caracteristicas_dispositivos(USER Func_login,USER userVect[9])
+{
+    //OBJETIVO MODIFICAR LOS DISPOSITIVOS CREADOS NO LOS ELIMINADOS
 
 }
 
-void func_modificar_caracteristicas_dispositivos(USER Func_login,USER userVect[9]){
-
-}
-
-void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9]){
-
+void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9])
+{
+    //OBJETIVO MODIFICAR LOS DISPOSITIVOS CREADOS NO LOS ELIMINADOS
+    
+    
 }
 
 
