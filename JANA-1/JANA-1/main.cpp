@@ -17,6 +17,7 @@ using namespace std;
 
 //Estructura Objetos
 struct DISP{
+    bool state;
     string name;
     string brand;
     string position;
@@ -483,6 +484,8 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
             
             if(tipo=='A'||tipo=='a')
             {
+                userVect[Func_login.id].dispo[0].state=true;
+                
                 cout<<"Televisor"<<endl;
                 cout<<"  "<<endl;
                 
@@ -524,6 +527,8 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                 
                 if(tipo=='B'||tipo=='b')
                 {
+                    userVect[Func_login.id].dispo[1].state=true;
+                    
                     cout<<" -| Dispositivo Tipo: Cerradura"<<endl;
                     cout<<"  "<<endl;
                     
@@ -540,12 +545,12 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                     cout<<"  "<<endl;
                     
                     cout<<" -| Estado del Dispositivo (Abierto/Cerrado): ";
-                    cin>>userVect[Func_login.id].dispo[0].estate;
+                    cin>>userVect[Func_login.id].dispo[1].estate;
                     cout<<"  "<<endl;
                     
-                    userVect[Func_login.id].dispo[0].vol="N/A";
-                    userVect[Func_login.id].dispo[0].chanel="N/A";
-                    userVect[Func_login.id].dispo[0].lumino="N/A";
+                    userVect[Func_login.id].dispo[1].vol="N/A";
+                    userVect[Func_login.id].dispo[1].chanel="N/A";
+                    userVect[Func_login.id].dispo[1].lumino="N/A";
                     
                     numeroDispo++;
                     
@@ -558,6 +563,8 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                     
                     if(tipo=='C'||tipo=='c')
                     {
+                        userVect[Func_login.id].dispo[2].state=true;
+                        
                         cout<<" -| Dispositivo Tipo: Cortina"<<endl;
                         cout<<"  "<<endl;
                         
@@ -577,9 +584,9 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                         cin>>userVect[Func_login.id].dispo[0].estate;
                         cout<<"  "<<endl;
                         
-                        userVect[Func_login.id].dispo[0].vol="N/A";
-                        userVect[Func_login.id].dispo[0].chanel="N/A";
-                        userVect[Func_login.id].dispo[0].lumino="N/A";
+                        userVect[Func_login.id].dispo[2].vol="N/A";
+                        userVect[Func_login.id].dispo[2].chanel="N/A";
+                        userVect[Func_login.id].dispo[2].lumino="N/A";
                         
                         numeroDispo++;
                         
@@ -592,6 +599,8 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                         
                         if(tipo=='D'||tipo=='d')
                         {
+                            userVect[Func_login.id].dispo[3].state=true;
+                            
                             cout<<" -| Dispositivo Tipo: Lampara"<<endl;
                             cout<<"  "<<endl;
                             
@@ -615,8 +624,8 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                             cin>>userVect[Func_login.id].dispo[0].lumino;
                             cout<<"  "<<endl;
                             
-                            userVect[Func_login.id].dispo[0].vol="N/A";
-                            userVect[Func_login.id].dispo[0].chanel="N/A";
+                            userVect[Func_login.id].dispo[3].vol="N/A";
+                            userVect[Func_login.id].dispo[3].chanel="N/A";
                             
                             numeroDispo++;
                             cout<<"Dispositivo Creado"<<endl;
@@ -670,7 +679,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
 
 void func_eliminar_dispositivos(USER Func_login,USER userVect[9])
 {
-    //OBJETIVO ELIMINAR LOS DISPOSITIVOS CREADOS.
+    //OBJETIVO ELIMINAR LOS DISPOSITIVOS CREADOS. UNA PROPIEDAD BOOL
 
 }
 
@@ -678,6 +687,22 @@ void func_listar_dispositivos(USER Func_login,USER userVect[9])
 {
     //OBJETIVO DIBUJAR LOS DISPOSITIVOS CREADOS Y ELIMINADOS
     
+    for(int i= 0;i < 9;i++)//RECORRE EL VECT DE USUARIOS
+    {
+        if(Func_login.id==i)//SE SELECCIONA SOLO EL QUE HA SIDO LOGEADO
+        {
+            //SE DIBUJA POR PANTALLA SUS DISPOSITIVOS MENOS LOS ELIMINADOS
+            for(int h= 0;h < 3;h++)
+            {
+                //SE DIBUJA POR PANTALLA SOLO DISPOSITIVOS ACTIVOS
+                if(userVect[Func_login.id].dispo[h].state==true)
+                {
+                    //TODAS SUS CARACTERISTICAS
+                }
+            }
+            
+        }
+    }
     
 }
 
@@ -690,7 +715,6 @@ void func_modificar_caracteristicas_dispositivos(USER Func_login,USER userVect[9
 void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9])
 {
     //OBJETIVO MODIFICAR LOS DISPOSITIVOS CREADOS NO LOS ELIMINADOS
-    
     
 }
 
