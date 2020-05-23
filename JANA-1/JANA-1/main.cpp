@@ -47,7 +47,7 @@ USER login(USER user,USER userVect[9]);
 void Security(USER user,USER userVect[9]);
 
 //Funciones de Funcionalidades de la app
-void menu(USER user,USER userVect[9]);
+void menu(USER Func_login,USER userVect[9]);
 void func_agregar_dispositivos(USER user,USER userVect[9]);
 void func_eliminar_dispositivos(USER user,USER userVect[9]);
 void func_listar_dispositivos(USER user,USER userVect[9]);
@@ -119,15 +119,14 @@ bool welcome()
 bool Create_Acount(bool NotUser,USER userVect[9])
 {
     //INICIALIZACION DE VARIABLES INTERNAS
-    int CountUsers=0;
-    string change="j";
+    int CountUsers= 0;
+    string change= "j";
 
     //CONTROL DEL PROGRAMA
-    if (NotUser==false)//SI NO ES USUARIO ENTRA DE LO CONTRARIO SI.
+    if (NotUser==false)//SI NO ES USUARIO ENTRA, DE LO CONTRARIO NO.
     {
         bool state=false;
-        cout<<" -| !Oh you need create a Acount!"<<endl;
-        cout<<"  "<<endl;
+        cout<<" -| !Oh you need create a Acount!"<<endl;;
         cout<<" -| Very well now i will help to create your user."<<endl;
         cout<<"  "<<endl;
         
@@ -138,7 +137,7 @@ bool Create_Acount(bool NotUser,USER userVect[9])
             userVect[CountUsers].id=CountUsers;//CONTADOR DE USUARIOS.
             
             //LE DICE AL USUARIO EL NUMERO DE CLIENTE QUE SERA.
-            cout<<" -| Now you are a User: "<<CountUsers+1<<endl;
+            cout<<" -| Now you are a User: "<<userVect[CountUsers].id<<endl;
             cout<<"  "<<endl;
             
             //SE REALIZA LA CAPTACION DE INFORMACION DE USUARIO.
@@ -151,7 +150,7 @@ bool Create_Acount(bool NotUser,USER userVect[9])
             cout<<"  "<<endl;
                        
             cout<<" -| Third: Give Me Your Profession: ";
-            cin>>userVect[userVect[CountUsers].id].Profession;//PROFECION
+            cin>>userVect[userVect[CountUsers].id].Profession;//PROFESSION
             cout<<"  "<<endl;
                 
             cout<<" -| Quarter: Give Me Your Sex (M/F): ";
@@ -172,9 +171,8 @@ bool Create_Acount(bool NotUser,USER userVect[9])
             //INICIA LA VERIFICACION DE LOS DATOS ANTERIORMENTE INGRESADOS
             
             cout<<" -| "<<userVect[userVect[CountUsers].id].name<<" Check that it is the correct information. "<<endl;
-            cout<<"  "<<endl;
             
-            cout<<" -| Now you are a User: "<<CountUsers+1<<endl;
+            cout<<" -| Now you are a User: "<<userVect[CountUsers].id<<endl;
             cout<<"  "<<endl;
             
             cout<<" -| First: Your First Name and Last Name: "
@@ -222,7 +220,7 @@ bool Create_Acount(bool NotUser,USER userVect[9])
                 
                 ///LIMPIA LA  ANTERIOR INFORMACION
                 system("clear");
-                CountUsers++;///SE AUMENTA EL CONTADOR DEL USUARIO
+                CountUsers+=1;///SE AUMENTA EL CONTADOR DEL USUARIO EN 1 +
                 
                 ///CONTROLADORES
                 state=true;//CIERRA EL CICLO.
@@ -251,21 +249,27 @@ USER login(USER user,USER userVect[9])
         cin>>password;
         cout<<" "<<endl;
     
-    //Recorrido en el Vector USER buscando el usuario
+    //RECORRE EL VECTOR DE USUARIOS BUSCANDO SU PAR
     for(int i = 0; i<9; i++)
     {
+        //CUANDO ENCUANTRA UN EMAIL EN EL VECTOR DEL EMAIL INGRESADO ENTONCES
+        //VERIFICA SI LA CONTRASEÑA ES DE IGUALFORMA CORRECTA, PERO SI NO LO ES
+        //SOLO RETORNA QUE LA AUTENTIFICACION ES FALSA A LA FUNCION SECURE
         if(userVect[i].email==email)
         {
             if(userVect[i].password==password)
             {
-                user.id= i;
+                user.id= i;//POSICION DEL USUARIO ES EL VECTOR USUARIOS
+                userVect[i].id= user.id;
                 userVect[i].auth= true;
                 user.auth= userVect[i].auth;
                 cout<<" -| Authentication Success!"<<endl;
                 return user;
+                
             }else{user.auth=false;}
             
         }else{
+            
             user.auth=false;
             system("clear");
         }
@@ -307,7 +311,7 @@ void Security(USER user,USER userVect[9])
             if(Func_login.auth==true)
             {
                 system("clear");
-                menu(user,userVect);//Menu unico del usuario
+                menu(Func_login,userVect);
                 cout<<" "<<endl;
                 
             }else{//De lo contrario el programa cuenta los intentos para hacer falsa el if de los intentos del login
@@ -338,25 +342,28 @@ void Security(USER user,USER userVect[9])
             //Ciclo se repite solo 4 veces si la aut no es exitosa
             //Si se exede los intentos cierra el programa.
             Func_login.auth = false;
+            
+            ///CICLO QUE SE REPITE 3 VECES MAS SI EL LOGIN NO FUE EXITOSO
             for(int i= 0; i<= 3 && Func_login.auth == false; i++)
             {
                 cout<<" -| Now Login"<<endl;
                 cout<<" "<<endl;
                 Func_login=login(user, userVect);
                 
-                //Si la aut del user en el login es positiva envia al usuario a su menu
+                //CASO CUANDO EL LOGIN FUE UN EXITO SE ENVIA AL MENU CORRESPONDIENTE DEL USUARIO
                 if(Func_login.auth==true)
                 {
-                    system("clear");
-                    menu(user,userVect);
+                    system("clear");///SE LIMPIA LA INFORMACION ANTERIOR
+                    menu(Func_login,userVect);
                     cout<<" "<<endl;
                     
-                }else{//De lo contrario cuenta los intentos para hacer falsa el if del ciclo
-                    system("clear");
-                    cout<<" "<<endl;
-                    cout<<"Te quedan: "<<4-(i+1)<<" Intentos"<<endl<<endl;
+                }else{//DE LO CONTRAARIO CUENTA LOS INTENTOS PARA LUEGO CERRAR EL CICLO Y EL PROGRAMA.
                     
-                    if(i==3)//De cierra el programa
+                    system("clear");///LIMPIA LA ANTERIOR INFORMACION
+                    cout<<" "<<endl;
+                    cout<<"Te quedan: "<<4-(i+1)<<" Intentos"<<endl<<endl;///CONTADOR DE INTENTOS
+                    
+                    if(i==3)//CUANDO HA EXEDIDO LOS INTENTOS SE CIERRA
                     {
                         cout<<" "<<endl;
                         cout<<"Reinica el programa"<<endl<<endl;
@@ -375,16 +382,20 @@ void Security(USER user,USER userVect[9])
     }
 }
 
-void menu(USER user, USER userVect[9]){
+void menu(USER Func_login, USER userVect[9]){
+    
+    ///VARIABLE INTERNA DE CONTROL
     int opcion;
     
-    //Recorrer el VectroUsuario hasta el id para acceder a sus dispositivos
-    for(int i=0; i<=user.id; i++)
+    //BUSCAR EL USUARIO POR SU ID EN EL USERVECT PARA GURADAR TODO LOS QUE SE HAGA EN ESTE MENU
+    for(int i= 0; i < 9; i++)///MAXIMO 9 USUARIOS
     {
-        if(i == user.id)//Si solo si i es el numero de usuario mostrar
+        //SI SOLO SI EL USUARIO ID QUE SE HA LOGIADO ES IGUAL AL CONTADOR DEL CICLO SE MUESTRA EL MENU CORRESPONDIENTE A ESE USUARIO
+        if(i == Func_login.id)
         {
             
-            cout<<" -| Welcome to JANA Menu"<<endl;
+            cout<<" -| Welcome to JANA Menu "<<userVect[Func_login.id].name<<endl;
+            cout<<" -|"<<endl;
             cout<<" -| 1. Agregar Dispositivos"<<endl;
             cout<<" -| 2. Eliminar Dispositivos"<<endl;
             cout<<" -| 3. Listar Dispositivos"<<endl;
@@ -392,29 +403,30 @@ void menu(USER user, USER userVect[9]){
             cout<<" -| 5. Modificar Funcionalidades Dispositivos"<<endl;
             cout<<" -| 6. Login Whit other Account User"<<endl<<endl;
             
-            cout<<" -| Type the option do you want to access (1 to 5)"<<endl;
+            cout<<" -| Type the option do you want to access (1 to 5): ";
             cin>>opcion;
-
+            cout<<" "<<endl;
+            
             switch(opcion){
                 case 1:
                     cout<<" -| Opcion: Agregar Dispositivos"<<endl;
-                    func_agregar_dispositivos(user,userVect);
+                    func_agregar_dispositivos(Func_login,userVect);
                     break;
                 case 2:
                     cout<<" -| Opcion: Eliminar Dispositivos"<<endl;
-                    func_eliminar_dispositivos(user,userVect);
+                    func_eliminar_dispositivos(Func_login,userVect);
                     break;
                 case 3:
                     cout<<" -| Opcion: Listar Dispositivos"<<endl;
-                    func_listar_dispositivos(user,userVect);
+                    func_listar_dispositivos(Func_login,userVect);
                     break;
                 case 4:
                     cout<<" -| Opcion: Modificar Caracteristicas Dispositivos"<<endl;
-                    func_modificar_caracteristicas_dispositivos(user,userVect);
+                    func_modificar_caracteristicas_dispositivos(Func_login,userVect);
                     break;
                 case 5:
                     cout<<" -| Opcion: Modificar Funcionalidades Dispositivos"<<endl;
-                    func_modificar_funcionalidades_dispositivos(user,userVect);
+                    func_modificar_funcionalidades_dispositivos(Func_login,userVect);
                     break;
                 case 6:
                 cout<<" -| Opcion: Login whit other account user"<<endl;
@@ -432,23 +444,21 @@ void menu(USER user, USER userVect[9]){
 
 //Funcionalidades del Menu
 //userVect[user.id].dispo[0].name=Televisor .... Lampara.
-
-void func_agregar_dispositivos(USER user,USER userVect[9])
+void func_agregar_dispositivos(USER Func_login,USER userVect[9])
 {
     int numeroDispo=0;
     char tipo='f',volver;
     //recorrer hasta llegar al id de usuario que solucita la funcion
     
     //Menu Interno
-    cout<<" "<<endl;
-    cout<<" -| Dispositivo de Tipo"<<endl;
+    cout<<" -| Dispositivo de Tipo:"<<endl;
     cout<<" "<<endl;
     
-    cout<<"A -> Televisor "<<endl;
-    cout<<"B -> Cerradura "<<endl;
-    cout<<"C -> Cortina "<<endl;
-    cout<<"D -> Lampara "<<endl;
-    cout<<"E -> Volver al Menu inicial "<<endl;
+    cout<<" A -> Televisor "<<endl;
+    cout<<" B -> Cerradura "<<endl;
+    cout<<" C -> Cortina "<<endl;
+    cout<<" D -> Lampara "<<endl;
+    cout<<" E -> Volver al Menu inicial "<<endl;
     cout<<" "<<endl;
     
     cout<<" -| Selecciona un tipo: ";
@@ -459,51 +469,51 @@ void func_agregar_dispositivos(USER user,USER userVect[9])
     cout<<" -| Nota: Si eliges el mismo tipo 2 veses queda guardado con la ultina configuracion "<<endl;
     cout<<" "<<endl;
     
-    for(int i=0;i<=user.id;i++)//Busca al Usuario en el vector
+    for(int i= 0;i < 9;i++)//Busca al Usuario en el vector
     {
-        if(user.id==i)//Extrae su indice para agregar la informacion de los dispositivos
+        if(Func_login.id==i)//Extrae su indice para agregar la informacion de los dispositivos
         {
-            cout<<" -| Agrega tu Dispositivo";
-             cout<<" "<<endl;
+            cout<<" -| Agrega tu Dispositivo tipo: ";
+             
             
             if(tipo=='A'||tipo=='a')
             {
-                cout<<" -| Dispositivo Tipo: Televisor"<<endl;
+                cout<<"Televisor"<<endl;
                 cout<<"  "<<endl;
                 
                 cout<<" -| Nombre del Dispositivo: ";
-                cin>>userVect[user.id].dispo[0].name;
+                cin>>userVect[Func_login.id].dispo[0].name;
                 cout<<"  "<<endl;
                 
                 cout<<" -| Marca del Dispositivo: ";
-                cin>>userVect[user.id].dispo[0].brand;
+                cin>>userVect[Func_login.id].dispo[0].brand;
                 cout<<"  "<<endl;
                 
                 cout<<" -| Posicion del Dispositivo: ";
-                cin>>userVect[user.id].dispo[0].position;
+                cin>>userVect[Func_login.id].dispo[0].position;
                 cout<<"  "<<endl;
                 
                 //Funcionalidades de los Dispo
                 
                 cout<<" -| Volumen del Dispositivo (0 -> 10): ";
-                cin>>userVect[user.id].dispo[0].vol;
+                cin>>userVect[Func_login.id].dispo[0].vol;
                 cout<<"  "<<endl;
                 
                 cout<<" -| Canal del Dispositivo (0 -> 125): ";
-                cin>>userVect[user.id].dispo[0].chanel;
+                cin>>userVect[Func_login.id].dispo[0].chanel;
                 cout<<"  "<<endl;
                 
                 cout<<" -| Estado del Dispositivo (Apagado/Prendido): ";
-                cin>>userVect[user.id].dispo[0].estate;
+                cin>>userVect[Func_login.id].dispo[0].estate;
                 cout<<"  "<<endl;
             
-                userVect[user.id].dispo[0].lumino="N/A";
+                userVect[Func_login.id].dispo[0].lumino="N/A";
                 
                 numeroDispo++;
                 cout<<"Dispositivo Creado"<<endl;
                 cout<<"  "<<endl;
                 
-                func_agregar_dispositivos(user,userVect);
+                func_agregar_dispositivos(Func_login,userVect);
                 
             }else{
                 
@@ -513,64 +523,65 @@ void func_agregar_dispositivos(USER user,USER userVect[9])
                     cout<<"  "<<endl;
                     
                     cout<<" -| Nombre del Dispositivo: ";
-                    cin>>userVect[user.id].dispo[1].name;
+                    cin>>userVect[Func_login.id].dispo[1].name;
                     cout<<"  "<<endl;
                     
                     cout<<" -| Marca del Dispositivo: ";
-                    cin>>userVect[user.id].dispo[1].brand;
+                    cin>>userVect[Func_login.id].dispo[1].brand;
                     cout<<"  "<<endl;
                     
                     cout<<" -| Posicion del Dispositivo: ";
-                    cin>>userVect[user.id].dispo[1].position;
+                    cin>>userVect[Func_login.id].dispo[1].position;
                     cout<<"  "<<endl;
                     
                     cout<<" -| Estado del Dispositivo (Abierto/Cerrado): ";
-                    cin>>userVect[user.id].dispo[0].estate;
+                    cin>>userVect[Func_login.id].dispo[0].estate;
                     cout<<"  "<<endl;
                     
-                    userVect[user.id].dispo[0].vol="N/A";
-                    userVect[user.id].dispo[0].chanel="N/A";
-                    userVect[user.id].dispo[0].lumino="N/A";
+                    userVect[Func_login.id].dispo[0].vol="N/A";
+                    userVect[Func_login.id].dispo[0].chanel="N/A";
+                    userVect[Func_login.id].dispo[0].lumino="N/A";
                     
                     numeroDispo++;
                     
                     cout<<"Dispositivo Creado"<<endl;
                     cout<<"  "<<endl;
                     
-                    func_agregar_dispositivos(user,userVect);
+                    func_agregar_dispositivos(Func_login,userVect);
                     
                 }else{
+                    
                     if(tipo=='C'||tipo=='c')
                     {
                         cout<<" -| Dispositivo Tipo: Cortina"<<endl;
                         cout<<"  "<<endl;
                         
                         cout<<" -| Nombre del Dispositivo: ";
-                        cin>>userVect[user.id].dispo[2].name;
+                        cin>>userVect[Func_login.id].dispo[2].name;
                         cout<<"  "<<endl;
                         
                         cout<<" -| Marca del Dispositivo: ";
-                        cin>>userVect[user.id].dispo[2].brand;
+                        cin>>userVect[Func_login.id].dispo[2].brand;
                         cout<<"  "<<endl;
                         
                         cout<<" -| Posicion del Dispositivo: ";
-                        cin>>userVect[user.id].dispo[2].position;
+                        cin>>userVect[Func_login.id].dispo[2].position;
                         cout<<"  "<<endl;
                         
                         cout<<" -| Estado del Dispositivo (Abierto/Cerrado): ";
-                        cin>>userVect[user.id].dispo[0].estate;
+                        cin>>userVect[Func_login.id].dispo[0].estate;
                         cout<<"  "<<endl;
                         
-                        userVect[user.id].dispo[0].vol="N/A";
-                        userVect[user.id].dispo[0].chanel="N/A";
-                        userVect[user.id].dispo[0].lumino="N/A";
+                        userVect[Func_login.id].dispo[0].vol="N/A";
+                        userVect[Func_login.id].dispo[0].chanel="N/A";
+                        userVect[Func_login.id].dispo[0].lumino="N/A";
                         
                         numeroDispo++;
                         
                         cout<<"Dispositivo Creado"<<endl;
                         cout<<"  "<<endl;
                         
-                        func_agregar_dispositivos(user,userVect);
+                        func_agregar_dispositivos(Func_login,userVect);
                         
                     }else{
                         
@@ -580,39 +591,39 @@ void func_agregar_dispositivos(USER user,USER userVect[9])
                             cout<<"  "<<endl;
                             
                             cout<<" -| Nombre del Dispositivo: ";
-                            cin>>userVect[user.id].dispo[3].name;
+                            cin>>userVect[Func_login.id].dispo[3].name;
                             cout<<"  "<<endl;
                             
                             cout<<" -| Marca del Dispositivo: ";
-                            cin>>userVect[user.id].dispo[3].brand;
+                            cin>>userVect[Func_login.id].dispo[3].brand;
                             cout<<"  "<<endl;
                             
                             cout<<" -| Posicion del Dispositivo: ";
-                            cin>>userVect[user.id].dispo[3].position;
+                            cin>>userVect[Func_login.id].dispo[3].position;
                             cout<<"  "<<endl;
                             
                             cout<<" -| Estado del Dispositivo (Abierto/Cerrado): ";
-                            cin>>userVect[user.id].dispo[0].estate;
+                            cin>>userVect[Func_login.id].dispo[0].estate;
                             cout<<"  "<<endl;
                             
                             cout<<" -| Luminosidad del Dispositivo (0 -> 10): ";
-                            cin>>userVect[user.id].dispo[0].lumino;
+                            cin>>userVect[Func_login.id].dispo[0].lumino;
                             cout<<"  "<<endl;
                             
-                            userVect[user.id].dispo[0].vol="N/A";
-                            userVect[user.id].dispo[0].chanel="N/A";
+                            userVect[Func_login.id].dispo[0].vol="N/A";
+                            userVect[Func_login.id].dispo[0].chanel="N/A";
                             
                             numeroDispo++;
                             cout<<"Dispositivo Creado"<<endl;
                             cout<<"  "<<endl;
                             
-                            func_agregar_dispositivos(user,userVect);
+                            func_agregar_dispositivos(Func_login,userVect);
                             
                         }else{
                             if(tipo=='E'||tipo=='e')
                             {
                                 system("clear");
-                                menu(user,userVect);
+                                menu(Func_login,userVect);
                             
                             }else{
                                 
@@ -620,7 +631,7 @@ void func_agregar_dispositivos(USER user,USER userVect[9])
                                 cout<<"Tipo Incorrecto"<<endl;
                                 cout<<"  "<<endl;
                                 system("clear");
-                                func_agregar_dispositivos(user,userVect);
+                                func_agregar_dispositivos(Func_login,userVect);
                             }
                         }
                     }
@@ -639,12 +650,12 @@ void func_agregar_dispositivos(USER user,USER userVect[9])
                 if(volver=='s'||volver=='S')
                 {
                     system("clear");
-                    menu(user,userVect);
+                    menu(Func_login,userVect);
                     
                 }else{
                     
                     system("clear");
-                    func_agregar_dispositivos(user,userVect);
+                    func_agregar_dispositivos(Func_login,userVect);
                 }
             }
             
@@ -652,19 +663,19 @@ void func_agregar_dispositivos(USER user,USER userVect[9])
     }
 }
 
-void func_eliminar_dispositivos(USER user,USER userVect[9]){
+void func_eliminar_dispositivos(USER Func_login,USER userVect[9]){
 
 }
 
-void func_listar_dispositivos(USER user,USER userVect[9]){
+void func_listar_dispositivos(USER Func_login,USER userVect[9]){
 
 }
 
-void func_modificar_caracteristicas_dispositivos(USER user,USER userVect[9]){
+void func_modificar_caracteristicas_dispositivos(USER Func_login,USER userVect[9]){
 
 }
 
-void func_modificar_funcionalidades_dispositivos(USER user,USER userVect[9]){
+void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9]){
 
 }
 
