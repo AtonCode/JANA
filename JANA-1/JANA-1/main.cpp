@@ -48,11 +48,11 @@ void Security(USER user,USER userVect[9]);
 
 //Funciones de Funcionalidades de la app
 void menu(USER user, USER Func_login,USER userVect[9]);
-void func_agregar_dispositivos(USER user,USER userVect[9]);
-void func_eliminar_dispositivos(USER user,USER userVect[9]);
-void func_listar_dispositivos(USER user,USER userVect[9]);
-void func_modificar_caracteristicas_dispositivos(USER user,USER userVect[9]);
-void func_modificar_funcionalidades_dispositivos(USER user,USER userVect[9]);
+void func_agregar_dispositivos(USER Func_login,USER userVect[9]);
+void func_eliminar_dispositivos(USER Func_login,USER userVect[9]);
+void func_listar_dispositivos(USER Func_login,USER userVect[9]);
+void func_modificar_caracteristicas_dispositivos(USER Func_login,USER userVect[9]);
+void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9]);
 
 //Funcion Principal
 int main()
