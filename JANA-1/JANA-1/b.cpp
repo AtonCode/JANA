@@ -403,7 +403,7 @@ void menu(USER Func_login, USER userVect[9]){
             cout<<" -| 3. Listar Dispositivos"<<endl;
             cout<<" -| 4. Modificar Caracteristicas Dispositivos"<<endl;
             cout<<" -| 5. Modificar Funcionalidades Dispositivos"<<endl;
-            cout<<" -| 6. Salir"<<endl<<endl;
+            //cout<<" -| 6. Login Whit other Account User"<<endl<<endl;
             
             cout<<" -| Type the option do you want to access (1 to 5): ";
             cin>>opcion;
@@ -411,40 +411,33 @@ void menu(USER Func_login, USER userVect[9]){
             
             switch(opcion){
                 case 1:
-                    system("clear");
                     cout<<" -| Opcion: Agregar Dispositivos"<<endl;
                     cout<<"  "<<endl;
                    func_agregar_dispositivos(Func_login,userVect);
                     break;
                 case 2:
-                    system("clear");
                     cout<<" -| Opcion: Eliminar Dispositivos"<<endl;
                     cout<<"  "<<endl;
                     func_eliminar_dispositivos(Func_login,userVect);
                     break;
                 case 3:
-                    system("clear");
                     cout<<" -| Opcion: Listar Dispositivos"<<endl;
                     cout<<"  "<<endl;
                     func_listar_dispositivos(Func_login,userVect);
                     break;
                 case 4:
-                    system("clear");
                     cout<<" -| Opcion: Modificar Caracteristicas Dispositivos"<<endl;
                     cout<<"  "<<endl;
                     func_modificar_caracteristicas_dispositivos(Func_login,userVect);
                     break;
                 case 5:
-                    system("clear");
                     cout<<" -| Opcion: Modificar Funcionalidades Dispositivos"<<endl;
                     cout<<"  "<<endl;
                     func_modificar_funcionalidades_dispositivos(Func_login,userVect);
                     break;
                 case 6:
-                    system("clear");
-                    cout<<" -| Opcion: Salir"<<endl;
+                    cout<<" -| Opcion: Login whit other account user"<<endl;
                     cout<<"  "<<endl;
-                    cout<<" -| Buen dia, Vuelve Pronto"<<endl;
                         //PLUS
                         //¿COMO VOLVER AL PRINCIPO SIN BORRAR LO ANTERIOR?
                         //Security(user,userVect); ESATA NO FUNCIONA BORRA TODO
@@ -489,19 +482,18 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
     cout<<" -| Nota: Si eliges el mismo tipo 2 veses queda guardado con la ultina configuracion "<<endl;
     cout<<" "<<endl;
     
-    system("clear");
     for(int i= 0;i < 9;i++)//Busca al Usuario en el vector
     {
         if(Func_login.id==i)//Extrae su indice para agregar la informacion de los dispositivos
         {
-            cout<<" -| Agrega tu Dispositivo tipo: "<<endl;
+            cout<<" -| Agrega tu Dispositivo tipo: ";
              
             
             if(tipo=='A'||tipo=='a')
             {
                 userVect[Func_login.id].dispo[0].state=true;
                 
-                cout<<"  Televisor"<<endl;
+                cout<<"Televisor"<<endl;
                 cout<<"  "<<endl;
                 
                 cout<<" -| Nombre del Dispositivo: ";
@@ -526,14 +518,14 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                 cin>>userVect[Func_login.id].dispo[0].estate;
                 cout<<"  "<<endl;
                 userVect[Func_login.id].dispo[0].lumino="N/A";
-                            
+                cout<<"  "<<endl;
+                
                 numeroDispo++;
                 
                 system("clear");
                 cout<<" -| Dispositivo TV Creado"<<endl;
                 cout<<"  "<<endl;
-                cout<<" -| Menu Funcion Crear Dispositivos"<<endl;
-                cout<<"  "<<endl;
+                cout<<"Menu Funcion Crear Dispositivos"<<endl;
                 func_agregar_dispositivos(Func_login,userVect);
                 
             }else{
@@ -542,7 +534,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                 {
                     userVect[Func_login.id].dispo[1].state=true;
                     
-                    cout<<"  Cerradura"<<endl;
+                    cout<<"Cerradura"<<endl;
                     cout<<"  "<<endl;
                     
                     cout<<" -| Nombre del Dispositivo: ";
@@ -566,8 +558,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                     system("clear");
                     cout<<" -| Dispositivo Cerradura Creado"<<endl;
                     cout<<"  "<<endl;
-                    cout<<" -| Menu Funcion Crear Dispositivos"<<endl;
-                    cout<<"  "<<endl;
+                    cout<<"Menu Funcion Crear Dispositivos"<<endl;
                     func_agregar_dispositivos(Func_login,userVect);
                     
                 }else{
@@ -576,7 +567,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                     {
                         userVect[Func_login.id].dispo[2].state=true;
                         
-                        cout<<"   Cortina"<<endl;
+                        cout<<"Cortina"<<endl;
                         cout<<"  "<<endl;
                         
                         cout<<" -| Nombre del Dispositivo: ";
@@ -589,7 +580,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                         cin>>userVect[Func_login.id].dispo[2].position;
                         
                         cout<<" -| Estado del Dispositivo (Abierto/Cerrado): ";
-                        cin>>userVect[Func_login.id].dispo[2].estate;
+                        cin>>userVect[Func_login.id].dispo[0].estate;
                         
                         userVect[Func_login.id].dispo[2].vol="N/A";
                         userVect[Func_login.id].dispo[2].chanel="N/A";
@@ -600,8 +591,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                         system("clear");
                         cout<<" -| Dispositivo Cortina Creado"<<endl;
                         cout<<"  "<<endl;
-                        cout<<" -| Menu Funcion Crear Dispositivos"<<endl;
-                        cout<<"  "<<endl;
+                        cout<<"Menu Funcion Crear Dispositivos"<<endl;
                         func_agregar_dispositivos(Func_login,userVect);
                         
                     }else{
@@ -610,7 +600,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                         {
                             userVect[Func_login.id].dispo[3].state=true;
                             
-                            cout<<"  Lampara"<<endl;
+                            cout<<"Lampara"<<endl;
                             cout<<"  "<<endl;
                             
                             cout<<" -| Nombre del Dispositivo: ";
@@ -622,11 +612,11 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                             cout<<" -| Posicion del Dispositivo: ";
                             cin>>userVect[Func_login.id].dispo[3].position;
                             
-                            cout<<" -| Estado del Dispositivo (Apagado/Encendido): ";
-                            cin>>userVect[Func_login.id].dispo[3].estate;
+                            cout<<" -| Estado del Dispositivo (Abierto/Cerrado): ";
+                            cin>>userVect[Func_login.id].dispo[0].estate;
                                                         
                             cout<<" -| Luminosidad del Dispositivo (0 -> 10): ";
-                            cin>>userVect[Func_login.id].dispo[3].lumino;
+                            cin>>userVect[Func_login.id].dispo[0].lumino;
                             
                             userVect[Func_login.id].dispo[3].vol="N/A";
                             userVect[Func_login.id].dispo[3].chanel="N/A";
@@ -635,8 +625,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                             system("clear");
                             cout<<" -| Dispositivo Lampara Creado"<<endl;
                             cout<<"  "<<endl;
-                            cout<<" -| Menu Funcion Crear Dispositivos"<<endl;
-                            cout<<"  "<<endl;
+                            cout<<"Menu Funcion Crear Dispositivos"<<endl;
                             func_agregar_dispositivos(Func_login,userVect);
                             
                         }else{
@@ -716,37 +705,33 @@ void func_eliminar_dispositivos(USER Func_login,USER userVect[9])
             {
                 system("clear");
                 userVect[Func_login.id].dispo[0].state=false;
-                cout<<" -| Dispositivo Televisor Eliminado "<<endl;
+                cout<<" -| Dispositivo Eliminado "<<endl;
                 cout<<" "<<endl;
                 menu(Func_login,userVect);//REGRESO AL MENU
                 
             }else{
                 if(numDispo==1)
                 {
-                    system("clear");
                     userVect[Func_login.id].dispo[1].state=false;
-                    cout<<" -| Dispositivo Cerradura Eliminado "<<endl;
+                    cout<<" -| Dispositivo Eliminado "<<endl;
                     menu(Func_login,userVect);//REGRESO AL MENU
                     
                 }else{
                     if(numDispo==2)
                     {
-                        system("clear");
                         userVect[Func_login.id].dispo[2].state=false;
-                        cout<<" -| Dispositivo Cortina Eliminado "<<endl;
+                        cout<<" -| Dispositivo Eliminado "<<endl;
                         menu(Func_login,userVect);//REGRESO AL MENU
                         
                     }else{
                         if(numDispo==3)
                         {
-                            system("clear");
                             userVect[Func_login.id].dispo[3].state=false;
-                            cout<<" -| Dispositivo Lampara Eliminado "<<endl;
+                            cout<<" -| Dispositivo Eliminado "<<endl;
                             menu(Func_login,userVect);//REGRESO AL MENU
                             
                         }else{
                             
-                            system("clear");
                             cout<<" -| Dispositivo No Existe "<<endl;
                             menu(Func_login,userVect);//REGRESO AL MENU
                             
@@ -778,7 +763,7 @@ void func_listar_dispositivos(USER Func_login,USER userVect[9])
                     cout<<" -| Caracteristicas: "<<endl;
                     cout<<" -| Nombre: "<<userVect[Func_login.id].dispo[h].name<<endl;
                     cout<<" -| Marca: "<<userVect[Func_login.id].dispo[h].brand<<endl;
-                    cout<<" -| Lugar: "<<userVect[Func_login.id].dispo[h].position<<endl<<endl;
+                    cout<<" -| Lugar: "<<userVect[Func_login.id].dispo[h].position<<endl;
                     
                     cout<<" -| Funciones: "<<endl;
                     cout<<" -| Estado: "<<userVect[Func_login.id].dispo[h].estate<<endl;
@@ -817,7 +802,13 @@ void func_modificar_caracteristicas_dispositivos(USER Func_login,USER userVect[9
                     cout<<" -| Caracteristicas: "<<endl;
                     cout<<" -| Nombre: "<<userVect[Func_login.id].dispo[h].name<<endl;
                     cout<<" -| Marca: "<<userVect[Func_login.id].dispo[h].brand<<endl;
-                    cout<<" -| Lugar: "<<userVect[Func_login.id].dispo[h].position<<endl<<endl;
+                    cout<<" -| Lugar: "<<userVect[Func_login.id].dispo[h].position<<endl;
+                    
+                    cout<<" -| Funciones: "<<endl;
+                    cout<<" -| Estado: "<<userVect[Func_login.id].dispo[h].estate<<endl;
+                    cout<<" -| Volumen: "<<userVect[Func_login.id].dispo[h].vol<<endl;
+                    cout<<" -| Canal: "<<userVect[Func_login.id].dispo[h].chanel<<endl;
+                    cout<<" -| Luminocidad: "<<userVect[Func_login.id].dispo[h].lumino<<endl<<endl;
                     
                 }
                 
@@ -884,6 +875,10 @@ void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9
                 {
                     //TODAS SUS CARACTERISTICAS
                     cout<<" -| Dispositivo: "<<h<<endl;
+                    cout<<" -| Caracteristicas: "<<endl;
+                    cout<<" -| Nombre: "<<userVect[Func_login.id].dispo[h].name<<endl;
+                    cout<<" -| Marca: "<<userVect[Func_login.id].dispo[h].brand<<endl;
+                    cout<<" -| Lugar: "<<userVect[Func_login.id].dispo[h].position<<endl;
                     
                     cout<<" -| Funciones: "<<endl;
                     cout<<" -| Estado: "<<userVect[Func_login.id].dispo[h].estate<<endl;
