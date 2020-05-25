@@ -92,7 +92,7 @@ bool welcome()
     cout<< "\t\t\t                    "<<endl;
 
     //Se pregunnta si tiene cuenta o no
-    cout<< " -| Hi, do you have account? (yes/not): ";
+    cout<< " -| Hi, you have acount? (yes/no): ";
     //Se alamacena la respuesta en acount
     cin>>acount;
     cout<<"  "<<endl;
@@ -127,8 +127,8 @@ bool Create_Acount(bool NotUser,USER userVect[9])
     if (NotUser==false)//SI NO ES USUARIO ENTRA, DE LO CONTRARIO NO.
     {
         bool state=false;
-        cout<<" -| Oh you need create a Acount!"<<endl;;
-        cout<<" -| Now I will be you help to create your user account."<<endl;
+        cout<<" -| !Oh you need create a Acount!"<<endl;;
+        cout<<" -| Very well now i will help to create your user."<<endl;
         cout<<"  "<<endl;
         
         //CICLO GUARDA LA INFORMACION DE EL NUEVO USUARIO AL USERVECT.
@@ -138,7 +138,7 @@ bool Create_Acount(bool NotUser,USER userVect[9])
             userVect[CountUsers].id=CountUsers;//CONTADOR DE USUARIOS.
             
             //LE DICE AL USUARIO EL NUMERO DE CLIENTE QUE SERA.
-            cout<<" -| Now you are the user number: "<<userVect[CountUsers].id<<endl;
+            cout<<" -| Now you are a User: "<<userVect[CountUsers].id<<endl;
             cout<<"  "<<endl;
             
             //SE REALIZA LA CAPTACION DE INFORMACION DE USUARIO.
@@ -173,7 +173,7 @@ bool Create_Acount(bool NotUser,USER userVect[9])
             
             cout<<" -| "<<userVect[userVect[CountUsers].id].name<<" Check that it is the correct information. "<<endl;
             
-            cout<<" -| Now you are the user numeber: "<<userVect[CountUsers].id<<endl;
+            cout<<" -| Now you are a User: "<<userVect[CountUsers].id<<endl;
             cout<<"  "<<endl;
             
             cout<<" -| First: Your First Name and Last Name: "
@@ -319,12 +319,12 @@ void Security(USER user,USER userVect[9])
                 
                 system("clear");//Limpiamos los anteriores intentos de la pantalla
                 cout<<" "<<endl;
-                cout<<" -| You have: "<<4-(i+1)<<" attempts"<<endl<<endl;
+                cout<<" -| Te quedan: "<<4-(i+1)<<" Intentos"<<endl<<endl;
                 
                 if(i==3)//Se cierra el programa cuando se alcancen el maximo de intentos
                 {
                     cout<<" "<<endl;
-                    cout<<" -| Restart the program"<<endl<<endl;
+                    cout<<" -| Reinica el programa"<<endl<<endl;
                     cout<<" "<<endl;
                 }
                 
@@ -362,12 +362,12 @@ void Security(USER user,USER userVect[9])
                     
                     system("clear");///LIMPIA LA ANTERIOR INFORMACION
                     cout<<" "<<endl;
-                    cout<<" -| You have: "<<4-(i+1)<<" attempts"<<endl<<endl;///CONTADOR DE INTENTOS
+                    cout<<" -| Te quedan: "<<4-(i+1)<<" Intentos"<<endl<<endl;///CONTADOR DE INTENTOS
                     
                     if(i==3)//CUANDO HA EXEDIDO LOS INTENTOS SE CIERRA
                     {
                         cout<<" "<<endl;
-                        cout<<" -| Restart the program"<<endl<<endl;
+                        cout<<" -| Reinica el programa"<<endl<<endl;
                         cout<<" "<<endl;
                     }
                     
@@ -398,60 +398,60 @@ void menu(USER Func_login, USER userVect[9]){
             
             cout<<" -| Welcome to JANA Menu "<<userVect[Func_login.id].name<<endl;
             cout<<" -|"<<endl;
-            cout<<" -| 1. Add Devices"<<endl;
-            cout<<" -| 2. Delate Devices"<<endl;
-            cout<<" -| 3. Show Devices"<<endl;
-            cout<<" -| 4. Modify Device Characteristic"<<endl;
-            cout<<" -| 5. Modify Device Functionalities"<<endl;
-            cout<<" -| 6. Exit"<<endl<<endl;
+            cout<<" -| 1. Agregar Dispositivos"<<endl;
+            cout<<" -| 2. Eliminar Dispositivos"<<endl;
+            cout<<" -| 3. Listar Dispositivos"<<endl;
+            cout<<" -| 4. Modificar Caracteristicas Dispositivos"<<endl;
+            cout<<" -| 5. Modificar Funcionalidades Dispositivos"<<endl;
+            cout<<" -| 6. Salir"<<endl<<endl;
             
-            cout<<" -| Type the option do you want to access (1 to 6): ";
+            cout<<" -| Type the option do you want to access (1 to 5): ";
             cin>>opcion;
             cout<<" "<<endl;
             
             switch(opcion){
                 case 1:
                     system("clear");
-                    cout<<" -| Opcion: Add Devices"<<endl;
+                    cout<<" -| Opcion: Agregar Dispositivos"<<endl;
                     cout<<"  "<<endl;
                    func_agregar_dispositivos(Func_login,userVect);
                     break;
                 case 2:
                     system("clear");
-                    cout<<" -| Opcion: Delate Devices"<<endl;
+                    cout<<" -| Opcion: Eliminar Dispositivos"<<endl;
                     cout<<"  "<<endl;
                     func_eliminar_dispositivos(Func_login,userVect);
                     break;
                 case 3:
                     system("clear");
-                    cout<<" -| Opcion: Show Devices"<<endl;
+                    cout<<" -| Opcion: Listar Dispositivos"<<endl;
                     cout<<"  "<<endl;
                     func_listar_dispositivos(Func_login,userVect);
                     break;
                 case 4:
                     system("clear");
-                    cout<<" -| Opcion: Modify Device Characteristic"<<endl;
+                    cout<<" -| Opcion: Modificar Caracteristicas Dispositivos"<<endl;
                     cout<<"  "<<endl;
                     func_modificar_caracteristicas_dispositivos(Func_login,userVect);
                     break;
                 case 5:
                     system("clear");
-                    cout<<" -| Opcion: Modify Device Functionalities"<<endl;
+                    cout<<" -| Opcion: Modificar Funcionalidades Dispositivos"<<endl;
                     cout<<"  "<<endl;
                     func_modificar_funcionalidades_dispositivos(Func_login,userVect);
                     break;
                 case 6:
                     system("clear");
-                    cout<<" -| Opcion: Exit"<<endl;
+                    cout<<" -| Opcion: Salir"<<endl;
                     cout<<"  "<<endl;
-                    cout<<" -| Goodbye Come Back Soon"<<endl;
+                    cout<<" -| Buen dia, Vuelve Pronto"<<endl;
                         //PLUS
                         //¿COMO VOLVER AL PRINCIPO SIN BORRAR LO ANTERIOR?
                         //Security(user,userVect); ESATA NO FUNCIONA BORRA TODO
                         //Create_Acount(NotUser,userVect); POR SI SOLA NO HACE NADA
                         break;
                 default:
-                    cout<<" -| Please enter a valid option number"<<endl;
+                    cout<<" -| Ingrese un numero de opcion valido"<<endl;
                     cout<<"  "<<endl;
                     break;
             }
@@ -471,32 +471,30 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
     //recorrer hasta llegar al id de usuario que solucita la funcion
     
     //Menu Interno
-    cout<<" -| Device Type:"<<endl;
+    cout<<" -| Dispositivo de Tipo:"<<endl;
     cout<<" "<<endl;
     
     cout<<" -| A -> Televisor "<<endl;
     cout<<" -| B -> Cerradura "<<endl;
     cout<<" -| C -> Cortina "<<endl;
     cout<<" -| D -> Lampara "<<endl;
-    cout<<" -| E -> Back to the initial Menu "<<endl;
+    cout<<" -| E -> Volver al Menu inicial "<<endl;
     cout<<" "<<endl;
     
-    cout<<" -| Select a Device Type (A -> E): ";
+    cout<<" -| Selecciona un tipo: ";
     cin>>tipo;
     cout<<" "<<endl;
     
-    /*
     cout<<" -| Nota: La capa gratitua solo pueden agregar 1 dispositivo por tipo :) "<<endl;
     cout<<" -| Nota: Si eliges el mismo tipo 2 veses queda guardado con la ultina configuracion "<<endl;
     cout<<" "<<endl;
-    */
     
     system("clear");
     for(int i= 0;i < 9;i++)//Busca al Usuario en el vector
     {
         if(Func_login.id==i)//Extrae su indice para agregar la informacion de los dispositivos
         {
-            cout<<" -| Add your Device Type: "<<endl;
+            cout<<" -| Agrega tu Dispositivo tipo: "<<endl;
              
             
             if(tipo=='A'||tipo=='a')
