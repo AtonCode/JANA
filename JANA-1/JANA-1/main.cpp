@@ -949,3 +949,5 @@ void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9
 
 
 
+
+
