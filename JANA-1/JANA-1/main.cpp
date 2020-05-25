@@ -127,7 +127,7 @@ bool Create_Acount(bool NotUser,USER userVect[9])
     if (NotUser==false)//SI NO ES USUARIO ENTRA, DE LO CONTRARIO NO.
     {
         bool state=false;
-        cout<<" -| Oh you need create a Acount!"<<endl;;
+        cout<<" -| Oh you need create a Account!"<<endl;;
         cout<<" -| Now I will be you help to create your user account."<<endl;
         cout<<"  "<<endl;
         
@@ -503,7 +503,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
             {
                 userVect[Func_login.id].dispo[0].state=true;
                 
-                cout<<"  Televisor"<<endl;
+                cout<<"          Televisor"<<endl;
                 cout<<"  "<<endl;
                 
                 cout<<" -| Nombre del Dispositivo: ";
@@ -544,7 +544,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                 {
                     userVect[Func_login.id].dispo[1].state=true;
                     
-                    cout<<"  Cerradura"<<endl;
+                    cout<<"          Cerradura"<<endl;
                     cout<<"  "<<endl;
                     
                     cout<<" -| Nombre del Dispositivo: ";
@@ -578,7 +578,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                     {
                         userVect[Func_login.id].dispo[2].state=true;
                         
-                        cout<<"   Cortina"<<endl;
+                        cout<<"          Cortina"<<endl;
                         cout<<"  "<<endl;
                         
                         cout<<" -| Nombre del Dispositivo: ";
@@ -612,7 +612,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                         {
                             userVect[Func_login.id].dispo[3].state=true;
                             
-                            cout<<"  Lampara"<<endl;
+                            cout<<"          Lampara"<<endl;
                             cout<<"  "<<endl;
                             
                             cout<<" -| Nombre del Dispositivo: ";
@@ -945,5 +945,6 @@ void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9
     cout<<" "<<endl;
     menu(Func_login,userVect);//REGRESO AL MENU
 }
+
 
 
