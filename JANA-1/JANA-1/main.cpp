@@ -17,7 +17,7 @@ using namespace std;
 
 //Estructura Objetos
 struct DISP{
-    bool state;
+    bool state = false;
     string name;
     string brand;
     string position;
@@ -468,6 +468,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
 {
     int numeroDispo=0;
     char tipo='f',volver;
+    
     //recorrer hasta llegar al id de usuario que solucita la funcion
     
     //Menu Interno
@@ -612,7 +613,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                         {
                             userVect[Func_login.id].dispo[3].state=true;
                             
-                            cout<<"          Lampara"<<endl;
+                            cout<<"          Lampara "<<endl;
                             cout<<"  "<<endl;
                             
                             cout<<" -| Nombre del Dispositivo: ";
@@ -635,7 +636,7 @@ void func_agregar_dispositivos(USER Func_login, USER userVect[9])
                             
                             numeroDispo++;
                             system("clear");
-                            cout<<" -| Dispositivo Lampara Creado"<<endl;
+                            cout<<" -| Dispositivo Lampara Creado: "<<userVect[Func_login.id].dispo[3].state<<endl;
                             cout<<"  "<<endl;
                             cout<<" -| Menu Funcion Crear Dispositivos"<<endl;
                             cout<<"  "<<endl;
@@ -698,7 +699,7 @@ void func_eliminar_dispositivos(USER Func_login,USER userVect[9])
         if(Func_login.id==i)//SE SELECCIONA SOLO EL QUE HA SIDO LOGEADO
         {
             //SE DIBUJA POR PANTALLA SUS DISPOSITIVOS MENOS LOS ELIMINADOS
-            for(int h= 0;h < 3;h++)
+            for(int h= 0;h < 4;h++)
             {
                 //SE DIBUJA POR PANTALLA SOLO DISPOSITIVOS ACTIVOS
                 if(userVect[Func_login.id].dispo[h].state==true)
@@ -770,7 +771,7 @@ void func_listar_dispositivos(USER Func_login,USER userVect[9])
         if(Func_login.id==i)//SE SELECCIONA SOLO EL QUE HA SIDO LOGEADO
         {
             //SE DIBUJA POR PANTALLA SUS DISPOSITIVOS MENOS LOS ELIMINADOS
-            for(int h= 0;h < 3;h++)
+            for(int h= 0;h < 4;h++)
             {
                 //SE DIBUJA POR PANTALLA SOLO DISPOSITIVOS ACTIVOS
                 if(userVect[Func_login.id].dispo[h].state==true)
@@ -809,7 +810,7 @@ void func_modificar_caracteristicas_dispositivos(USER Func_login,USER userVect[9
         if(Func_login.id==i)//SE SELECCIONA SOLO EL QUE HA SIDO LOGEADO
         {
             //SE DIBUJA POR PANTALLA SUS DISPOSITIVOS MENOS LOS ELIMINADOS
-            for(int h= 0;h < 3;h++)
+            for(int h= 0;h < 4;h++)
             {
                 //SE DIBUJA POR PANTALLA SOLO DISPOSITIVOS ACTIVOS
                 if(userVect[Func_login.id].dispo[h].state==true)
@@ -831,7 +832,7 @@ void func_modificar_caracteristicas_dispositivos(USER Func_login,USER userVect[9
             cout<<" "<<endl;
             
             //SE MODIFICA LOS EL DISPOSITIVO SELECCIONADO
-            for(int h= 0;h < 3;h++)
+            for(int h= 0;h < 4;h++)
             {
                 //SE DIBUJA POR PANTALLA SOLO DISPOSITIVOS ACTIVOS
                 if(numDispo==h)
@@ -879,7 +880,7 @@ void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9
         if(Func_login.id==i)//SE SELECCIONA SOLO EL QUE HA SIDO LOGEADO
         {
             //SE DIBUJA POR PANTALLA SUS DISPOSITIVOS MENOS LOS ELIMINADOS
-            for(int h= 0;h < 3;h++)
+            for(int h= 0;h < 4;h++)
             {
                 //SE DIBUJA POR PANTALLA SOLO DISPOSITIVOS ACTIVOS
                 if(userVect[Func_login.id].dispo[h].state==true)
@@ -903,7 +904,7 @@ void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9
             cout<<" "<<endl;
             
             //SE MODIFICA LOS EL DISPOSITIVO SELECCIONADO
-            for(int h= 0;h < 3;h++)
+            for(int h= 0;h < 4;h++)
             {
                 //SE DIBUJA POR PANTALLA SOLO DISPOSITIVOS ACTIVOS
                 if(numDispo==h)
