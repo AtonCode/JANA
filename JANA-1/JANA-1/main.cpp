@@ -992,10 +992,3 @@ void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9
     cout<<" "<<endl;
     menu(Func_login,userVect);//REGRESO AL MENU
 }
-
-
-
-
-
-
-
