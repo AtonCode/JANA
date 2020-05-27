@@ -3,7 +3,7 @@
 //  main.cpp
 //  |JANA|
 //
-//  Create by Alejandro S. Leal && Natalia A. on 5/10/2020
+// Create by Alejandro S. Leal && Natalia A Tunjano. on 5/10/2020
 //
 //  Copyright © 2020 aslbank.com. All rights reserved.
 //
@@ -819,156 +819,193 @@ void func_listar_dispositivos(USER Func_login, USER userVect[9])
 
 }
 
-void func_modificar_caracteristicas_dispositivos(USER Func_login, USER userVect[9])
+
+void func_modificar_caracteristicas_dispositivos(USER Func_login,USER userVect[9])
 {
     //OBJETIVO MODIFICAR LOS DISPOSITIVOS CREADOS NO LOS ELIMINADOS
-    int numDispo = 0;
-
+    //Variable interna
+    string opc="g";
+    int numDispo=0;
+    
     //MUESTRA LOS DISPOSITIVOS DISPONIBLES PARA MODIFICACIONES
-    for (int i = 0; i < 9; i++)//RECORRE EL VECT DE USUARIOS
+    for(int i= 0;i < 9;i++)//RECORRE EL VECT DE USUARIOS
     {
-        if (Func_login.id == i)//SE SELECCIONA SOLO EL QUE HA SIDO LOGEADO
+        if(Func_login.id==i)//SE SELECCIONA SOLO EL QUE HA SIDO LOGEADO
         {
             //SE DIBUJA POR PANTALLA SUS DISPOSITIVOS MENOS LOS ELIMINADOS
-            for (int h = 0; h < 4; h++)
+            for(int h= 0;h < 4;h++)
             {
                 //SE DIBUJA POR PANTALLA SOLO DISPOSITIVOS ACTIVOS
-                if (userVect[Func_login.id].dispo[h].state == true)
+                if(userVect[Func_login.id].dispo[h].state==true)
                 {
+                    
                     //TODAS SUS CARACTERISTICAS
-                    cout << " -| Dispositivo: " << h << endl;
-                    cout << " -| Caracteristicas: " << endl;
-                    cout << " -| Nombre: " << userVect[Func_login.id].dispo[h].name << endl;
-                    cout << " -| Marca: " << userVect[Func_login.id].dispo[h].brand << endl;
-                    cout << " -| Lugar: " << userVect[Func_login.id].dispo[h].position << endl << endl;
-
+                    cout<<" -| Dispositivo: "<<h<<endl;
+                    cout<<" -| Caracteristicas: "<<endl;
+                    cout<<" -| Nombre: "<<userVect[Func_login.id].dispo[h].name<<endl;
+                    cout<<" -| Marca: "<<userVect[Func_login.id].dispo[h].brand<<endl;
+                    cout<<" -| Lugar: "<<userVect[Func_login.id].dispo[h].position<<endl<<endl;
+                    
                 }
-
+                
             }//DISPO
-            cout << " " << endl << endl;
-
-            cout << " -| Indica el numero del Dispositivo a Mofificar : ";
-            cin >> numDispo;
-            cout << " " << endl;
-
+            cout<<" "<<endl<<endl;
+            
+            cout<<" -| Indica el numero del Dispositivo a Mofificar : ";
+            cin>>numDispo;
+            cout<<" "<<endl;
+            
             //SE MODIFICA LOS EL DISPOSITIVO SELECCIONADO
-            for (int h = 0; h < 4; h++)
+            for(int h= 0;h < 4;h++)
             {
                 //SE DIBUJA POR PANTALLA SOLO DISPOSITIVOS ACTIVOS
-                if (numDispo == h)
+                if(numDispo==h)
                 {
                     //MODIFICA TODAS SUS CARACTERISTICAS
-                    cout << " -| Dispositivo: " << h << endl;
-                    cout << " -| Caracteristicas: " << endl;
-                    cout << " -| Nombre: " << userVect[Func_login.id].dispo[h].name << endl;
-                    cout << " -| Por: ";
-                    cin >> userVect[Func_login.id].dispo[h].name;
-                    cout << " " << endl;
-
-                    cout << " -| Marca: " << userVect[Func_login.id].dispo[h].brand << endl;
-                    cout << " -| Por: ";
-                    cin >> userVect[Func_login.id].dispo[h].brand;
-                    cout << " " << endl;
-
-                    cout << " -| Lugar: " << userVect[Func_login.id].dispo[h].position << endl;
-                    cout << " -| Por: ";
-                    cin >> userVect[Func_login.id].dispo[h].position;
-                    cout << " " << endl;
-
-                    system("cls");
-                    cout << " -| Caracteristicas del Dispositivo Modificadas " << endl;
-                    cout << " " << endl;
-                    menu(Func_login, userVect);//REGRESO AL MENU
-
+                    cout<<" -| Dispositivo: "<<h<<endl;
+                    cout<<" -| Caracteristicas: "<<endl;
+                    cout<<" -| N -> Nombre: "<<userVect[Func_login.id].dispo[h].name<<endl;
+                    cout<<" -| M -> Marca: "<<userVect[Func_login.id].dispo[h].brand<<endl;
+                    cout<<" -| L -> Lugar: "<<userVect[Func_login.id].dispo[h].position<<endl;
+                    cout<<" "<<endl;
+                    
+                    cout<<" -| Que Caracteristica desea cambiar?: ";
+                    cin>>opc;
+                    
+                    if(opc=="N"||opc=="n")
+                    {
+                        cout<<" -| Por: ";
+                        cin>>userVect[Func_login.id].dispo[h].name;
+                        cout<<" "<<endl;
+                    }
+                    
+                    if(opc=="M"||opc=="m")
+                    {
+                        cout<<" -| Por: ";
+                        cin>>userVect[Func_login.id].dispo[h].brand;
+                        cout<<" "<<endl;
+                    }
+                        
+                    if(opc=="L"||opc=="l")
+                    {
+                        cout<<" -| Por: ";
+                        cin>>userVect[Func_login.id].dispo[h].position;
+                        cout<<" "<<endl;
+                    }
+                        
+                    
+                    system("clear");
+                    cout<<" -| Caracteristicas del Dispositivo Modificadas "<<endl;
+                    cout<<" "<<endl;
+                    
+                    menu(Func_login,userVect);//REGRESO AL MENU
+                    
                 }
-
+                
             }
-
+            
         }//USUARIO
     }//FOR END
-
+    
 }
 
-void func_modificar_funcionalidades_dispositivos(USER Func_login, USER userVect[9])
+void func_modificar_funcionalidades_dispositivos(USER Func_login,USER userVect[9])
 {
     //OBJETIVO MODIFICAR LOS DISPOSITIVOS CREADOS NO LOS ELIMINADOS
-    int numDispo = 0;
-
+    int numDispo=0;
+    string opc="h";
+    
     //MUESTRA LOS DISPOSITIVOS DISPONIBLES PARA MODIFICACIONES
-    for (int i = 0; i < 9; i++)//RECORRE EL VECT DE USUARIOS
+    for(int i= 0;i < 9;i++)//RECORRE EL VECT DE USUARIOS
     {
-        if (Func_login.id == i)//SE SELECCIONA SOLO EL QUE HA SIDO LOGEADO
+        if(Func_login.id==i)//SE SELECCIONA SOLO EL QUE HA SIDO LOGEADO
         {
             //SE DIBUJA POR PANTALLA SUS DISPOSITIVOS MENOS LOS ELIMINADOS
-            for (int h = 0; h < 4; h++)
+            for(int h= 0;h < 4;h++)
             {
                 //SE DIBUJA POR PANTALLA SOLO DISPOSITIVOS ACTIVOS
-                if (userVect[Func_login.id].dispo[h].state == true)
+                if(userVect[Func_login.id].dispo[h].state==true)
                 {
                     //TODAS SUS CARACTERISTICAS
-                    cout << " -| Dispositivo: " << h << endl;
-
-                    cout << " -| Funciones: " << endl;
-                    cout << " -| Estado: " << userVect[Func_login.id].dispo[h].estate << endl;
-                    cout << " -| Volumen: " << userVect[Func_login.id].dispo[h].vol << endl;
-                    cout << " -| Canal: " << userVect[Func_login.id].dispo[h].chanel << endl;
-                    cout << " -| Luminocidad: " << userVect[Func_login.id].dispo[h].lumino << endl << endl;
-
+                    cout<<" -| Dispositivo: "<<h<<endl;
+                    
+                    cout<<" -| Funciones: "<<endl;
+                    cout<<" -| Estado: "<<userVect[Func_login.id].dispo[h].estate<<endl;
+                    cout<<" -| Volumen: "<<userVect[Func_login.id].dispo[h].vol<<endl;
+                    cout<<" -| Canal: "<<userVect[Func_login.id].dispo[h].chanel<<endl;
+                    cout<<" -| Luminocidad: "<<userVect[Func_login.id].dispo[h].lumino<<endl<<endl;
+                    
                 }
-
+                
             }//DISPO
-            cout << " " << endl << endl;
-
-            cout << " -| Indica el numero del Dispositivo a Mofificar : ";
-            cin >> numDispo;
-            cout << " " << endl;
-
+            cout<<" "<<endl<<endl;
+            
+            cout<<" -| Indica el numero del Dispositivo a Mofificar : ";
+            cin>>numDispo;
+            cout<<" "<<endl;
+            
             //SE MODIFICA LOS EL DISPOSITIVO SELECCIONADO
-            for (int h = 0; h < 4; h++)
+            for(int h= 0;h < 4;h++)
             {
                 //SE DIBUJA POR PANTALLA SOLO DISPOSITIVOS ACTIVOS
-                if (numDispo == h)
+                if(numDispo==h)
                 {
                     //MODIFICA TODAS SUS FUNCIONALIDADES
                     //ESTAS DEPENDEN DEL TIPO DE DISPOSITIVO
+                    
+                    cout<<" -| Dispositivo: "<<h<<endl;
+                    cout<<" -| Funcionalidades: "<<endl;
+                    
+                    cout<<" -| E -> Estado: "<<userVect[Func_login.id].dispo[h].estate<<endl;
+                    cout<<" -| V -> Volumen: "<<userVect[Func_login.id].dispo[h].vol<<endl;
+                    cout<<" -| C -> Canal: "<<userVect[Func_login.id].dispo[h].chanel<<endl;
+                    cout<<" -| L -> Luminocidad: "<<userVect[Func_login.id].dispo[h].lumino<<endl<<endl;
+                    cout<<" "<<endl;
+                    
+                    cout<<" "<<endl;
+                    cout<<" -| Que Funcionalidad desea cambiar?: ";
+                    cin>>opc;
+                    cout<<" "<<endl;
+                    
+                    
+                    if(opc=="E"||opc=="e")
+                    {
+                        cout<<" -| Por: ";
+                        cin>>userVect[Func_login.id].dispo[h].estate;
+                        cout<<" "<<endl;
+                    }
+                    
+                    if(opc=="V"||opc=="v")
+                    {
+                        cout<<" -| Por: ";
+                        cin>>userVect[Func_login.id].dispo[h].vol;
+                        cout<<" "<<endl;
+                    }
 
-                    cout << " -| Dispositivo: " << h << endl;
-                    cout << " -| Funcionalidades: " << endl;
-
-                    cout << " -| Estado: " << userVect[Func_login.id].dispo[h].estate << endl;
-                    cout << " -| Por: ";
-                    cin >> userVect[Func_login.id].dispo[h].estate;
-                    cout << " " << endl;
-
-                    cout << " -| Volumen: " << userVect[Func_login.id].dispo[h].vol << endl;
-                    cout << " -| Por: ";
-                    cin >> userVect[Func_login.id].dispo[h].vol;
-                    cout << " " << endl;
-
-                    cout << " -| Canal: " << userVect[Func_login.id].dispo[h].chanel << endl;
-                    cout << " -| Por: ";
-                    cin >> userVect[Func_login.id].dispo[h].chanel;
-                    cout << " " << endl;
-
-                    cout << " -| Luminocidad: " << userVect[Func_login.id].dispo[h].lumino << endl << endl;
-                    cout << " -| Por: ";
-                    cin >> userVect[Func_login.id].dispo[h].lumino;
-                    cout << " " << endl;
-
+                    
+                    if(opc=="C"||opc=="c")
+                    {
+                        cout<<" -| Por: ";
+                        cin>>userVect[Func_login.id].dispo[h].chanel;
+                        cout<<" "<<endl;
+                    }
+                    
+                    
+                    if(opc=="L"||opc=="l")
+                    {
+                        cout<<" -| Por: ";
+                        cin>>userVect[Func_login.id].dispo[h].lumino;
+                        cout<<" "<<endl;
+                    }
+        
                 }
-
+                
             }
-
+            
         }//USUARIO
     }//FOR END
-    system("cls");
-    cout << " -| Funcionalidades del Dispositivo Modificadas " << endl;
-    cout << " " << endl;
-    menu(Func_login, userVect);//REGRESO AL MENU
+    system("clear");
+    cout<<" -| Funcionalidades del Dispositivo Modificadas "<<endl;
+    cout<<" "<<endl;
+    menu(Func_login,userVect);//REGRESO AL MENU
 }
-
-
-
-
-
-
